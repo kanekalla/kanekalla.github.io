@@ -24,6 +24,11 @@
                 />
     <xhtml:link
                 rel="alternate"
+                hreflang="te"
+                href="/te/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
                 hreflang="pt-br"
                 href="/pt-br/categories/"
                 />
@@ -66,22 +71,6 @@
   </url>
   
   <url>
-    <loc>/pt-br/</loc>
-    <lastmod>2018-12-31T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt-br"
-                href="/pt-br/"
-                />
-  </url>
-  
-  <url>
     <loc>/pt-br/posts/</loc>
     <lastmod>2018-12-31T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -121,6 +110,11 @@
                 />
     <xhtml:link
                 rel="alternate"
+                hreflang="te"
+                href="/te/series/"
+                />
+    <xhtml:link
+                rel="alternate"
                 hreflang="pt-br"
                 href="/pt-br/series/"
                 />
@@ -151,8 +145,34 @@
                 />
     <xhtml:link
                 rel="alternate"
+                hreflang="te"
+                href="/te/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
                 hreflang="pt-br"
                 href="/pt-br/tags/"
+                />
+  </url>
+  
+  <url>
+    <loc>/pt-br/</loc>
+    <lastmod>2018-12-31T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="te"
+                href="/te/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="/pt-br/"
                 />
   </url>
   
