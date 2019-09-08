@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>kishoreanekalla</title>
+    <title>Kishore R. Anekalla</title>
     <link>/</link>
-    <description>Recent content on kishoreanekalla</description>
+    <description>Recent content on Kishore R. Anekalla</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Thu, 27 Jun 2019 00:00:00 +0000</lastBuildDate>
@@ -128,7 +128,7 @@ Follow the following steps:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/contact/</guid>
-      <description>Follow me, @KishoreAnekalla.</description>
+      <description>@KishoreAnekalla.</description>
     </item>
     
     <item>
@@ -137,7 +137,7 @@ Follow the following steps:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/about/</guid>
-      <description>Biography I am a PhD Candidate at Northwestern Unviersity. My research interests include understanding lung biology using systems biology approaches, machine learning. I am a member of Biomedical Informatics and Data Science (BIDS) student group at Northwestern.</description>
+      <description>Biography I am a PhD Candidate at Northwestern Unviersity. My research interests include computational biology, machine learning. I am a member of Biomedical Informatics and Data Science (BIDS) student group at Northwestern.</description>
     </item>
     
     <item>
