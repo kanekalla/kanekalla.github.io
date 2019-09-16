@@ -6,10 +6,19 @@
     <description>Recent content on Kishore R. Anekalla</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 27 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 13 Sep 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Linear Regression</title>
+      <link>/post/linear-regression/</link>
+      <pubDate>Fri, 13 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/linear-regression/</guid>
+      <description>Linear regression (LR) is one of the simplest supervised machine learning (SML) approach to perform statistical modeling. LR is useful in finding relationship between independent (predictor) and dependent (response) variable. Central idea of LR is to obtain a linear relationship between varaibles that best fits the data. Best fit line is one in which total prediction error (all data points) Before fitting a linear model to data, we should deterine whether or not there is a relationship between the variabes of interest.</description>
+    </item>
     
     <item>
       <title>Command line tips</title>
@@ -120,6 +129,15 @@ Follow the following steps:
       
       <guid>/posts/migrate-from-jekyll/</guid>
       <description>Table of Contents  Move static content to static Create your Hugo configuration file Set your configuration publish folder to site Convert Jekyll templates to Hugo templates Convert Jekyll plugins to Hugo shortcodes  Implementation Usage  Finishing Touches  Fix Content Clean Up  A practical example in a diff  Move static content to static Jekyll has a rule that any directory not starting with _ will be copied as-is to the _site output.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/post/2019-09-13-linear-regression/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019-09-13-linear-regression/</guid>
+      <description>Linear Regression       code{white-space: pre;} pre:not([class]) { background-color: white; }  if (window.hljs) { hljs.configure({languages: []}); hljs.initHighlightingOnLoad(); if (document.readyState &amp;&amp; document.readyState === &#34;complete&#34;) { window.setTimeout(function() { hljs.initHighlighting(); }, 0); } }  h1 { font-size: 34px; } h1.title { font-size: 38px; } h2 { font-size: 30px; } h3 { font-size: 24px; } h4 { font-size: 18px; } h5 { font-size: 16px; } h6 { font-size: 12px; } .</description>
     </item>
     
     <item>

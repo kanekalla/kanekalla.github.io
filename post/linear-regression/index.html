@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Kishore R. Anekalla">
+    <meta name="description" content="Kishore Anekalla&#39;s personal website">
+    <meta name="keywords" content="Computational Biologist,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linear Regression"/>
+<meta name="twitter:description" content="Linear regression (LR) is one of the simplest supervised machine learning (SML) approach to perform statistical modeling. LR is useful in finding relationship between independent (predictor) and dependent (response) variable. Central idea of LR is to obtain a linear relationship between varaibles that best fits the data. Best fit line is one in which total prediction error (all data points) Before fitting a linear model to data, we should deterine whether or not there is a relationship between the variabes of interest."/>
+
+    <meta property="og:title" content="Linear Regression" />
+<meta property="og:description" content="Linear regression (LR) is one of the simplest supervised machine learning (SML) approach to perform statistical modeling. LR is useful in finding relationship between independent (predictor) and dependent (response) variable. Central idea of LR is to obtain a linear relationship between varaibles that best fits the data. Best fit line is one in which total prediction error (all data points) Before fitting a linear model to data, we should deterine whether or not there is a relationship between the variabes of interest." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/linear-regression/" />
+<meta property="article:published_time" content="2019-09-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-09-13T00:00:00+00:00" />
+
+
+    
+      <base href="/post/linear-regression/">
+    
+    <title>
+  Linear Regression · Kishore R. Anekalla
+</title>
+
+    
+      <link rel="canonical" href="/post/linear-regression/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.28d751104f30c16da1aa1bb04015cbe662cacfe0d1b01af4f2240ad58580069c.css" integrity="sha256-KNdREE8wwW2hqhuwQBXL5mLKz&#43;DRsBr08iQK1YWABpw=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+
+    
+
+    
+    
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <meta name="generator" content="Hugo 0.57.2" />
+  </head>
+
+  <body class=" ">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      Kishore R. Anekalla
+    </a>
+    <input type="checkbox" id="menu-toggle" />
+    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+    <ul class="navigation-list">
+      
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="/about/">About</a>
+          </li>
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="/cv/cv_kra.pdf">CV</a>
+          </li>
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="/posts/">Blog</a>
+          </li>
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="/projects/">Projects</a>
+          </li>
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="/contact/">Contact me</a>
+          </li>
+        
+      
+      
+    </ul>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container page">
+  <article>
+    <header>
+      <h1>Linear Regression</h1>
+    </header>
+
+    
+
+<p>Linear regression (LR) is one of the simplest supervised machine learning (SML) approach to perform statistical modeling.
+LR is useful in finding relationship between independent (predictor) and dependent (response) variable. Central idea of LR is to obtain a linear relationship between varaibles that best fits the data. Best fit line is one in which total prediction error (all data points)
+Before fitting a linear model to data, we should deterine whether or not there is a relationship between the variabes of interest. If there appears to be no association b/w the proposed explanatory and dependent varaibles (scatter plot doesn&rsquo;t indicate any increasing or decreasing trends), the fitting a linear regression model to data will not provide a useful model. Association b/w two variables is correlation coefficient (-1 to 1).</p>
+
+<p>Simple LR has one dependent and one independnt variable. A LR line has an equation of the form Y = a + bX, where X is the independent variable and Y is the dependent or response variable. The term a is the intercept (the value of y when x = 0) and  slope of the line is b.</p>
+
+<p>Using Calcofi data let us predict the relationship between temperature and salinity</p>
+
+<h1 id="let-us-take-calcofi-data">let us take calcofi data</h1>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#fff;font-weight:bold">library</span>(ggplot2)
+&gt; ggplot(bottle_dat_sal_temp, aes(x = Salnty, y = T_degC)) +
++     geom_point()</code></pre></div>
+  </article>
+</section>
+
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+    
+      <p>🚀🚀🚀Under construction.</p>
+    
+     © 2019
+    
+       · 
+      Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+    
+       · 
+      [<a href="https://github.com/luizdepra/hugo-coder/tree/"></a>]
+    
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>
