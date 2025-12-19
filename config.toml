@@ -1,0 +1,104 @@
+baseURL = "https://kanekalla.github.io/"
+languageCode = "en-us"
+title = "Kishore R. Anekalla"
+theme = "hugo-coder"
+copyright = "© 2024 Kishore R. Anekalla"
+
+[params]
+  author = "Kishore R. Anekalla"
+  description = "PhD Candidate in Computational Biology | Data Science | Machine Learning"
+  keywords = "computational biology, data science, machine learning, bioinformatics"
+  info = "PhD Candidate in Computational Biology"
+  
+  # Social links
+  [[params.social]]
+    name = "Github"
+    icon = "fab fa-github"
+    url = "https://github.com/kanekalla/"
+  
+  [[params.social]]
+    name = "Google Scholar"
+    icon = "fas fa-graduation-cap"
+    url = "https://scholar.google.com/citations?user=Aux_e5sAAAAJ&hl=en"
+  
+  [[params.social]]
+    name = "Twitter"
+    icon = "fab fa-twitter"
+    url = "https://twitter.com/kishoreanekalla/"
+  
+  [[params.social]]
+    name = "LinkedIn"
+    icon = "fab fa-linkedin"
+    url = "http://linkedin.com/in/kishore-reddy-anekalla-9b4b8121"
+  
+  [[params.social]]
+    name = "Medium"
+    icon = "fab fa-medium"
+    url = "https://medium.com/@kishorereddyanekalla"
+
+  # Theme customization
+  hideCredentials = false
+  hideCopyright = false
+  
+  # Enable syntax highlighting
+  highlight = true
+  highlightStyle = "github-dark"
+  
+  # Enable math rendering
+  math = true
+  
+  # Enable code folding
+  codeFolding = true
+
+[markup]
+  [markup.highlight]
+    style = "github-dark"
+    lineNos = true
+    lineNumbersInTable = false
+    noClasses = false
+  
+  [markup.goldmark]
+    renderer = true
+    [markup.goldmark.renderer]
+      unsafe = true
+  
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 6
+
+[menu]
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 1
+  
+  [[menu.main]]
+    identifier = "cv"
+    name = "CV"
+    url = "/cv/cv_kra.pdf"
+    weight = 2
+  
+  [[menu.main]]
+    identifier = "posts"
+    name = "Blog"
+    url = "/posts/"
+    weight = 3
+  
+  [[menu.main]]
+    identifier = "projects"
+    name = "Projects"
+    url = "/projects/"
+    weight = 4
+  
+  [[menu.main]]
+    identifier = "contact"
+    name = "Contact"
+    url = "/contact/"
+    weight = 5
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+  series = "series"
+

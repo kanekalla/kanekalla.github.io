@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Kishore R. Anekalla">
+  <meta name="description" content="Exploring gene expression patterns using data analysis">
+  <meta name="keywords" content="data analysis, bioinformatics, gene expression, R, Python">
+  
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Gene Expression Analysis: A Data Science Approach"/>
+  
+  <meta property="og:title" content="Gene Expression Analysis: A Data Science Approach" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="/posts/data-analysis-example/" />
+  
+  <base href="/posts/data-analysis-example/">
+  <title>Gene Expression Analysis: A Data Science Approach · Kishore R. Anekalla</title>
+  <link rel="canonical" href="/posts/data-analysis-example/">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Modern CSS -->
+  <link rel="stylesheet" href="/css/modern.css">
+  
+  <!-- Plotly for interactive charts -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  
+  <!-- D3.js for data visualization -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+</head>
+
+<body>
+  <main class="wrapper">
+    <nav class="navigation">
+      <section class="container">
+        <a class="navigation-title" href="/">Kishore R. Anekalla</a>
+        <input type="checkbox" id="menu-toggle" />
+        <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+        <ul class="navigation-list" id="nav-list">
+          <li class="navigation-item"><a class="navigation-link" href="/about/">About</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/cv/cv_kra.pdf">CV</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/posts/">Blog</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/projects/">Projects</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/contact/">Contact</a></li>
+        </ul>
+      </section>
+    </nav>
+
+    <div class="content">
+      <section class="container page">
+        <article>
+          <header>
+            <h1>Gene Expression Analysis: A Data Science Approach</h1>
+            <div style="margin-top: 1rem; color: var(--text-secondary);">
+              <span><i class="far fa-calendar"></i> December 18, 2024</span>
+              <span style="margin-left: 2rem;"><i class="far fa-clock"></i> 10 min read</span>
+            </div>
+            <div style="margin-top: 1rem;">
+              <span style="background: var(--bg-secondary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem; margin-right: 0.5rem;">Data Analysis</span>
+              <span style="background: var(--bg-secondary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem; margin-right: 0.5rem;">Bioinformatics</span>
+              <span style="background: var(--bg-secondary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem;">R</span>
+            </div>
+          </header>
+
+          <div style="margin-top: 3rem;">
+            <h2>Introduction</h2>
+            <p>
+              In this blog post, we'll explore gene expression data analysis using modern data science techniques. 
+              We'll work with simulated gene expression data to demonstrate various analytical approaches including 
+              exploratory data analysis, statistical testing, and visualization.
+            </p>
+
+            <h2>Loading and Exploring the Data</h2>
+            <p>
+              Let's start by loading our gene expression dataset. For this example, we'll use simulated data that 
+              represents expression levels across different conditions.
+            </p>
+
+            <div class="data-viz">
+              <h3>Sample Data Overview</h3>
+              <div id="data-table" style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                  <thead>
+                    <tr style="background: var(--bg-secondary);">
+                      <th style="padding: 0.75rem; text-align: left; border-bottom: 2px solid var(--border-color);">Gene</th>
+                      <th style="padding: 0.75rem; text-align: left; border-bottom: 2px solid var(--border-color);">Condition A</th>
+                      <th style="padding: 0.75rem; text-align: left; border-bottom: 2px solid var(--border-color);">Condition B</th>
+                      <th style="padding: 0.75rem; text-align: left; border-bottom: 2px solid var(--border-color);">Fold Change</th>
+                    </tr>
+                  </thead>
+                  <tbody id="data-table-body">
+                    <!-- Data will be populated by JavaScript -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <h2>Visualizing Expression Patterns</h2>
+            <p>
+              Visualization is crucial for understanding gene expression patterns. Let's create some interactive 
+              visualizations to explore our data.
+            </p>
+
+            <div class="data-viz">
+              <h3>Expression Distribution</h3>
+              <div id="histogram-plot" style="height: 400px;"></div>
+            </div>
+
+            <div class="data-viz">
+              <h3>Volcano Plot</h3>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+                A volcano plot shows the relationship between fold change and statistical significance. 
+                Points in the upper corners represent genes with both high fold change and high significance.
+              </p>
+              <div id="volcano-plot" style="height: 500px;"></div>
+            </div>
+
+            <div class="data-viz">
+              <h3>Heatmap of Top Differentially Expressed Genes</h3>
+              <div id="heatmap-plot" style="height: 600px;"></div>
+            </div>
+
+            <h2>Statistical Analysis</h2>
+            <p>
+              We performed differential expression analysis using a t-test to identify genes that are 
+              significantly different between conditions.
+            </p>
+
+            <div class="data-viz">
+              <h3>Summary Statistics</h3>
+              <div id="summary-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <!-- Stats will be populated by JavaScript -->
+              </div>
+            </div>
+
+            <h2>Key Findings</h2>
+            <ul style="line-height: 2; margin-left: 2rem;">
+              <li>Identified <strong id="sig-genes">0</strong> significantly differentially expressed genes (p &lt; 0.05)</li>
+              <li>Average fold change: <strong id="avg-fc">0</strong></li>
+              <li>Genes with fold change &gt; 2: <strong id="high-fc">0</strong></li>
+            </ul>
+
+            <h2>Code Example</h2>
+            <p>Here's a sample R code snippet for performing this analysis:</p>
+            <pre><code># Load required libraries
+library(ggplot2)
+library(dplyr)
+
+# Perform differential expression analysis
+results <- data %>%
+  group_by(gene) %>%
+  summarise(
+    mean_condition_a = mean(condition_a),
+    mean_condition_b = mean(condition_b),
+    fold_change = log2(mean_condition_b / mean_condition_a),
+    p_value = t.test(condition_a, condition_b)$p.value
+  ) %>%
+  mutate(
+    significant = p_value < 0.05,
+    log_pvalue = -log10(p_value)
+  )
+
+# Create volcano plot
+ggplot(results, aes(x = fold_change, y = log_pvalue, color = significant)) +
+  geom_point(alpha = 0.6) +
+  scale_color_manual(values = c("gray", "red")) +
+  labs(x = "Log2 Fold Change", y = "-Log10 P-value") +
+  theme_minimal()</code></pre>
+
+            <h2>Conclusion</h2>
+            <p>
+              This analysis demonstrates how modern data science techniques can be applied to gene expression data. 
+              The interactive visualizations help identify patterns that might not be obvious from raw data alone.
+            </p>
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <footer class="footer">
+      <section class="container">
+        <p>© 2024 Kishore R. Anekalla</p>
+      </section>
+    </footer>
+
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+      <i class="fas fa-moon" id="theme-icon"></i>
+    </button>
+  </main>
+
+  <script>
+    // Theme toggle (same as homepage)
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const html = document.documentElement;
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme);
+    
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcon(newTheme);
+    });
+    
+    function updateThemeIcon(theme) {
+      if (theme === 'dark') {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+      } else {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+      }
+    }
+
+    // Generate sample data
+    function generateSampleData() {
+      const genes = ['GENE' + String(i).padStart(4, '0') for (i of Array(50).keys())];
+      const data = genes.map(gene => {
+        const condA = Math.random() * 10 + 5;
+        const condB = condA * (0.5 + Math.random());
+        const foldChange = Math.log2(condB / condA);
+        const pValue = Math.random();
+        return { gene, condA: condA.toFixed(2), condB: condB.toFixed(2), foldChange: foldChange.toFixed(2), pValue };
+      });
+      return data;
+    }
+
+    const data = generateSampleData();
+
+    // Populate data table
+    const tableBody = document.getElementById('data-table-body');
+    data.slice(0, 10).forEach(row => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td style="padding: 0.75rem; border-bottom: 1px solid var(--border-color);">${row.gene}</td>
+        <td style="padding: 0.75rem; border-bottom: 1px solid var(--border-color);">${row.condA}</td>
+        <td style="padding: 0.75rem; border-bottom: 1px solid var(--border-color);">${row.condB}</td>
+        <td style="padding: 0.75rem; border-bottom: 1px solid var(--border-color);">${row.foldChange}</td>
+      `;
+      tableBody.appendChild(tr);
+    });
+
+    // Create histogram
+    const condAValues = data.map(d => parseFloat(d.condA));
+    Plotly.newPlot('histogram-plot', [{
+      x: condAValues,
+      type: 'histogram',
+      marker: { color: '#2563eb' },
+      nbinsx: 20
+    }], {
+      title: 'Distribution of Expression Values (Condition A)',
+      xaxis: { title: 'Expression Level' },
+      yaxis: { title: 'Frequency' },
+      template: 'plotly_white',
+      margin: { t: 50, b: 50, l: 50, r: 50 }
+    });
+
+    // Create volcano plot
+    const foldChanges = data.map(d => parseFloat(d.foldChange));
+    const logPValues = data.map(d => -Math.log10(parseFloat(d.pValue)));
+    const significant = data.map(d => parseFloat(d.pValue) < 0.05);
+    
+    Plotly.newPlot('volcano-plot', [{
+      x: foldChanges,
+      y: logPValues,
+      mode: 'markers',
+      type: 'scatter',
+      marker: {
+        color: significant.map(s => s ? '#ef4444' : '#6b7280'),
+        size: 8,
+        opacity: 0.6
+      },
+      text: data.map(d => d.gene),
+      hovertemplate: '<b>%{text}</b><br>Fold Change: %{x:.2f}<br>-Log10 P-value: %{y:.2f}<extra></extra>'
+    }], {
+      title: 'Volcano Plot',
+      xaxis: { title: 'Log2 Fold Change' },
+      yaxis: { title: '-Log10 P-value' },
+      shapes: [{
+        type: 'line',
+        x0: -2, x1: -2, y0: 0, y1: Math.max(...logPValues),
+        line: { color: 'gray', dash: 'dash', width: 1 }
+      }, {
+        type: 'line',
+        x0: 2, x1: 2, y0: 0, y1: Math.max(...logPValues),
+        line: { color: 'gray', dash: 'dash', width: 1 }
+      }, {
+        type: 'line',
+        x0: Math.min(...foldChanges), x1: Math.max(...foldChanges), y0: 1.3, y1: 1.3,
+        line: { color: 'gray', dash: 'dash', width: 1 }
+      }],
+      template: 'plotly_white',
+      margin: { t: 50, b: 50, l: 50, r: 50 }
+    });
+
+    // Create heatmap
+    const topGenes = data.slice(0, 20);
+    const heatmapData = {
+      z: [topGenes.map(d => parseFloat(d.condA)), topGenes.map(d => parseFloat(d.condB))],
+      x: topGenes.map(d => d.gene),
+      y: ['Condition A', 'Condition B'],
+      type: 'heatmap',
+      colorscale: 'Viridis'
+    };
+    
+    Plotly.newPlot('heatmap-plot', [heatmapData], {
+      title: 'Expression Heatmap',
+      margin: { t: 50, b: 150, l: 100, r: 50 }
+    });
+
+    // Update summary statistics
+    const sigCount = significant.filter(s => s).length;
+    const avgFC = (foldChanges.reduce((a, b) => a + b, 0) / foldChanges.length).toFixed(2);
+    const highFC = foldChanges.filter(fc => Math.abs(fc) > 1).length;
+
+    document.getElementById('sig-genes').textContent = sigCount;
+    document.getElementById('avg-fc').textContent = avgFC;
+    document.getElementById('high-fc').textContent = highFC;
+
+    // Populate summary stats cards
+    const statsDiv = document.getElementById('summary-stats');
+    statsDiv.innerHTML = `
+      <div class="card" style="text-align: center;">
+        <h3 style="font-size: 2rem; color: var(--primary-color); margin-bottom: 0.5rem;">${data.length}</h3>
+        <p style="color: var(--text-secondary);">Total Genes</p>
+      </div>
+      <div class="card" style="text-align: center;">
+        <h3 style="font-size: 2rem; color: var(--primary-color); margin-bottom: 0.5rem;">${sigCount}</h3>
+        <p style="color: var(--text-secondary);">Significant (p &lt; 0.05)</p>
+      </div>
+      <div class="card" style="text-align: center;">
+        <h3 style="font-size: 2rem; color: var(--primary-color); margin-bottom: 0.5rem;">${highFC}</h3>
+        <p style="color: var(--text-secondary);">High Fold Change</p>
+      </div>
+    `;
+  </script>
+</body>
+
+</html>
+
