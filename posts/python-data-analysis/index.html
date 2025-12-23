@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Kishore R. Anekalla">
+  <meta name="description" content="Data analysis with Python: A practical guide">
+  <meta name="keywords" content="python, data analysis, pandas, matplotlib, seaborn">
+  
+  <base href="/posts/python-data-analysis/">
+  <title>Data Analysis with Python · Kishore R. Anekalla</title>
+  <link rel="canonical" href="/posts/python-data-analysis/">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/modern.css">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+  
+  <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+</head>
+
+<body>
+  <main class="wrapper">
+    <nav class="navigation">
+      <section class="container">
+        <a class="navigation-title" href="/">Kishore R. Anekalla</a>
+        <input type="checkbox" id="menu-toggle" />
+        <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+        <ul class="navigation-list" id="nav-list">
+          <li class="navigation-item"><a class="navigation-link" href="/about/">About</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/cv/cv_kra.pdf">CV</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/posts/">Blog</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/projects/">Projects</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/contact/">Contact</a></li>
+        </ul>
+      </section>
+    </nav>
+
+    <div class="content">
+      <section class="container page">
+        <article>
+          <header>
+            <h1>Data Analysis with Python: A Practical Guide</h1>
+            <div style="margin-top: 1rem; color: var(--text-secondary);">
+              <span><i class="far fa-calendar"></i> December 18, 2024</span>
+              <span style="margin-left: 2rem;"><i class="far fa-clock"></i> 8 min read</span>
+            </div>
+            <div style="margin-top: 1rem;">
+              <span style="background: var(--bg-secondary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem; margin-right: 0.5rem;">Python</span>
+              <span style="background: var(--bg-secondary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem; margin-right: 0.5rem;">Data Science</span>
+              <span style="background: var(--bg-secondary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem;">Pandas</span>
+            </div>
+          </header>
+
+          <div style="margin-top: 3rem;">
+            <h2>Introduction</h2>
+            <p>
+              Python has become the go-to language for data analysis and scientific computing. In this post, 
+              we'll explore how to perform data analysis using popular Python libraries like pandas, matplotlib, 
+              and seaborn.
+            </p>
+
+            <h2>Loading Data with Pandas</h2>
+            <p>
+              Pandas is the cornerstone of data manipulation in Python. Let's start by creating a sample dataset 
+              and exploring it.
+            </p>
+
+            <div class="data-viz">
+              <h3>Sample Dataset</h3>
+              <div id="pandas-table" style="overflow-x: auto; margin-top: 1rem;">
+                <!-- Table will be populated by JavaScript -->
+              </div>
+            </div>
+
+            <h2>Data Visualization</h2>
+            <p>
+              Visualization is key to understanding data. Let's create some visualizations using our sample data.
+            </p>
+
+            <div class="data-viz">
+              <h3>Time Series Plot</h3>
+              <div id="timeseries-plot" style="height: 400px;"></div>
+            </div>
+
+            <div class="data-viz">
+              <h3>Correlation Heatmap</h3>
+              <div id="correlation-plot" style="height: 500px;"></div>
+            </div>
+
+            <div class="data-viz">
+              <h3>Distribution Analysis</h3>
+              <div id="distribution-plot" style="height: 400px;"></div>
+            </div>
+
+            <h2>Code Example</h2>
+            <p>Here's a sample Python code snippet for this analysis:</p>
+            <pre><code>import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Create sample data
+dates = pd.date_range('2024-01-01', periods=100, freq='D')
+data = pd.DataFrame({
+    'date': dates,
+    'value_a': np.random.randn(100).cumsum() + 100,
+    'value_b': np.random.randn(100).cumsum() + 95,
+    'value_c': np.random.randn(100).cumsum() + 105
+})
+
+# Basic statistics
+print(data.describe())
+
+# Create visualizations
+fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+
+# Time series
+data.plot(x='date', y=['value_a', 'value_b', 'value_c'], ax=axes[0, 0])
+axes[0, 0].set_title('Time Series Plot')
+
+# Correlation heatmap
+corr = data[['value_a', 'value_b', 'value_c']].corr()
+sns.heatmap(corr, annot=True, ax=axes[0, 1])
+
+# Distribution
+data[['value_a', 'value_b', 'value_c']].hist(ax=axes[1, 0])
+
+plt.tight_layout()
+plt.show()</code></pre>
+
+            <h2>Key Insights</h2>
+            <ul style="line-height: 2; margin-left: 2rem;">
+              <li>Data analysis workflow: Load → Explore → Visualize → Analyze</li>
+              <li>Pandas provides powerful data manipulation capabilities</li>
+              <li>Matplotlib and Seaborn enable rich visualizations</li>
+              <li>Interactive plots enhance data exploration</li>
+            </ul>
+
+            <h2>Conclusion</h2>
+            <p>
+              Python's ecosystem provides excellent tools for data analysis. The combination of pandas for 
+              data manipulation and matplotlib/seaborn for visualization creates a powerful workflow for 
+              exploring and understanding data.
+            </p>
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <footer class="footer">
+      <section class="container">
+        <p>© 2024 Kishore R. Anekalla</p>
+      </section>
+    </footer>
+
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+      <i class="fas fa-moon" id="theme-icon"></i>
+    </button>
+  </main>
+
+  <script>
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const html = document.documentElement;
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme);
+    
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcon(newTheme);
+    });
+    
+    function updateThemeIcon(theme) {
+      if (theme === 'dark') {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+      } else {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+      }
+    }
+
+    // Generate sample data
+    function generateTimeSeriesData() {
+      const dates = [];
+      const valueA = [];
+      const valueB = [];
+      const valueC = [];
+      
+      let a = 100, b = 95, c = 105;
+      for (let i = 0; i < 100; i++) {
+        dates.push(new Date(2024, 0, i + 1).toISOString().split('T')[0]);
+        a += (Math.random() - 0.5) * 2;
+        b += (Math.random() - 0.5) * 2;
+        c += (Math.random() - 0.5) * 2;
+        valueA.push(a);
+        valueB.push(b);
+        valueC.push(c);
+      }
+      
+      return { dates, valueA, valueB, valueC };
+    }
+
+    const data = generateTimeSeriesData();
+
+    // Create pandas-style table
+    const tableDiv = document.getElementById('pandas-table');
+    let tableHTML = '<table style="width: 100%; border-collapse: collapse;"><thead><tr style="background: var(--bg-secondary);">';
+    tableHTML += '<th style="padding: 0.75rem; text-align: left; border-bottom: 2px solid var(--border-color);">Date</th>';
+    tableHTML += '<th style="padding: 0.75rem; text-align: left; border-bottom: 2px solid var(--border-color);">Value A</th>';
+    tableHTML += '<th style="padding: 0.75rem; text-align: left; border-bottom: 2px solid var(--border-color);">Value B</th>';
+    tableHTML += '<th style="padding: 0.75rem; text-align: left; border-bottom: 2px solid var(--border-color);">Value C</th></tr></thead><tbody>';
+    
+    for (let i = 0; i < 10; i++) {
+      tableHTML += `<tr>
+        <td style="padding: 0.75rem; border-bottom: 1px solid var(--border-color);">${data.dates[i]}</td>
+        <td style="padding: 0.75rem; border-bottom: 1px solid var(--border-color);">${data.valueA[i].toFixed(2)}</td>
+        <td style="padding: 0.75rem; border-bottom: 1px solid var(--border-color);">${data.valueB[i].toFixed(2)}</td>
+        <td style="padding: 0.75rem; border-bottom: 1px solid var(--border-color);">${data.valueC[i].toFixed(2)}</td>
+      </tr>`;
+    }
+    tableHTML += '</tbody></table>';
+    tableDiv.innerHTML = tableHTML;
+
+    // Time series plot
+    Plotly.newPlot('timeseries-plot', [{
+      x: data.dates,
+      y: data.valueA,
+      name: 'Value A',
+      type: 'scatter',
+      mode: 'lines',
+      line: { color: '#2563eb' }
+    }, {
+      x: data.dates,
+      y: data.valueB,
+      name: 'Value B',
+      type: 'scatter',
+      mode: 'lines',
+      line: { color: '#7c3aed' }
+    }, {
+      x: data.dates,
+      y: data.valueC,
+      name: 'Value C',
+      type: 'scatter',
+      mode: 'lines',
+      line: { color: '#06b6d4' }
+    }], {
+      title: 'Time Series Data',
+      xaxis: { title: 'Date' },
+      yaxis: { title: 'Value' },
+      template: 'plotly_white',
+      margin: { t: 50, b: 50, l: 50, r: 50 }
+    });
+
+    // Correlation heatmap
+    function calculateCorrelation(arr1, arr2) {
+      const mean1 = arr1.reduce((a, b) => a + b, 0) / arr1.length;
+      const mean2 = arr2.reduce((a, b) => a + b, 0) / arr2.length;
+      let num = 0, den1 = 0, den2 = 0;
+      for (let i = 0; i < arr1.length; i++) {
+        num += (arr1[i] - mean1) * (arr2[i] - mean2);
+        den1 += Math.pow(arr1[i] - mean1, 2);
+        den2 += Math.pow(arr2[i] - mean2, 2);
+      }
+      return num / Math.sqrt(den1 * den2);
+    }
+
+    const corrAB = calculateCorrelation(data.valueA, data.valueB);
+    const corrAC = calculateCorrelation(data.valueA, data.valueC);
+    const corrBC = calculateCorrelation(data.valueB, data.valueC);
+
+    Plotly.newPlot('correlation-plot', [{
+      z: [[1, corrAB, corrAC], [corrAB, 1, corrBC], [corrAC, corrBC, 1]],
+      x: ['Value A', 'Value B', 'Value C'],
+      y: ['Value A', 'Value B', 'Value C'],
+      type: 'heatmap',
+      colorscale: 'RdBu',
+      zmid: 0,
+      text: [[1, corrAB.toFixed(2), corrAC.toFixed(2)], 
+             [corrAB.toFixed(2), 1, corrBC.toFixed(2)], 
+             [corrAC.toFixed(2), corrBC.toFixed(2), 1]],
+      texttemplate: '%{text}',
+      textfont: { size: 14, color: 'white' },
+      showscale: true
+    }], {
+      title: 'Correlation Heatmap',
+      template: 'plotly_white',
+      margin: { t: 50, b: 50, l: 100, r: 50 }
+    });
+
+    // Distribution plot
+    Plotly.newPlot('distribution-plot', [{
+      x: data.valueA,
+      type: 'histogram',
+      name: 'Value A',
+      marker: { color: '#2563eb', opacity: 0.7 },
+      nbinsx: 20
+    }, {
+      x: data.valueB,
+      type: 'histogram',
+      name: 'Value B',
+      marker: { color: '#7c3aed', opacity: 0.7 },
+      nbinsx: 20
+    }, {
+      x: data.valueC,
+      type: 'histogram',
+      name: 'Value C',
+      marker: { color: '#06b6d4', opacity: 0.7 },
+      nbinsx: 20
+    }], {
+      title: 'Distribution of Values',
+      xaxis: { title: 'Value' },
+      yaxis: { title: 'Frequency' },
+      barmode: 'overlay',
+      template: 'plotly_white',
+      margin: { t: 50, b: 50, l: 50, r: 50 }
+    });
+  </script>
+</body>
+
+</html>
+

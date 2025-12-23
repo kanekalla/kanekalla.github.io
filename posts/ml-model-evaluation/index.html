@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Kishore R. Anekalla">
+  <meta name="description" content="Comprehensive guide to machine learning model evaluation with interactive visualizations">
+  <meta name="keywords" content="machine learning, model evaluation, ROC curve, confusion matrix, data science">
+  
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Machine Learning Model Evaluation: A Comprehensive Guide"/>
+  
+  <meta property="og:title" content="Machine Learning Model Evaluation: A Comprehensive Guide" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="/posts/ml-model-evaluation/" />
+  
+  <base href="/posts/ml-model-evaluation/">
+  <title>Machine Learning Model Evaluation: A Comprehensive Guide · Kishore R. Anekalla</title>
+  <link rel="canonical" href="/posts/ml-model-evaluation/">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Modern CSS -->
+  <link rel="stylesheet" href="/css/modern.css">
+  
+  <!-- Plotly for interactive charts -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+</head>
+
+<body>
+  <main class="wrapper">
+    <nav class="navigation">
+      <section class="container">
+        <a class="navigation-title" href="/">Kishore R. Anekalla</a>
+        <input type="checkbox" id="menu-toggle" />
+        <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+        <ul class="navigation-list" id="nav-list">
+          <li class="navigation-item"><a class="navigation-link" href="/about/">About</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/cv/cv_kra.pdf">CV</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/posts/">Blog</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/projects/">Projects</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/contact/">Contact</a></li>
+        </ul>
+      </section>
+    </nav>
+
+    <div class="content">
+      <section class="container page">
+        <article>
+          <header>
+            <h1>Machine Learning Model Evaluation: A Comprehensive Guide</h1>
+            <div style="margin-top: 1rem; color: var(--text-secondary);">
+              <span><i class="far fa-calendar"></i> December 19, 2024</span>
+              <span style="margin-left: 2rem;"><i class="far fa-clock"></i> 12 min read</span>
+            </div>
+            <div style="margin-top: 1rem;">
+              <span style="background: var(--bg-secondary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem; margin-right: 0.5rem;">Machine Learning</span>
+              <span style="background: var(--bg-secondary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem; margin-right: 0.5rem;">Data Science</span>
+              <span style="background: var(--bg-secondary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem;">Python</span>
+            </div>
+          </header>
+
+          <div style="margin-top: 3rem;">
+            <h2>Introduction</h2>
+            <p>
+              Evaluating machine learning models is crucial for understanding their performance and making informed decisions. 
+              In this comprehensive guide, we'll explore various evaluation metrics and visualization techniques for both 
+              classification and regression models. We'll use interactive visualizations to demonstrate key concepts.
+            </p>
+
+            <h2>Classification Model Evaluation</h2>
+            <p>
+              For classification problems, we have several metrics and visualizations at our disposal. Let's start by 
+              examining a confusion matrix, which provides a detailed breakdown of model predictions.
+            </p>
+
+            <div class="data-viz">
+              <h3>Confusion Matrix</h3>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+                A confusion matrix shows the number of correct and incorrect predictions for each class. 
+                The diagonal elements represent correct predictions, while off-diagonal elements show misclassifications.
+              </p>
+              <div id="confusion-matrix" style="height: 500px;"></div>
+            </div>
+
+            <div class="data-viz">
+              <h3>ROC Curve and AUC</h3>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+                The Receiver Operating Characteristic (ROC) curve plots the true positive rate against the false positive rate 
+                at various threshold settings. The Area Under the Curve (AUC) provides a single metric to compare models.
+              </p>
+              <div id="roc-curve" style="height: 500px;"></div>
+              <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-secondary); border-radius: 8px;">
+                <p style="margin: 0;"><strong>AUC Score:</strong> <span id="auc-score">0.00</span></p>
+                <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary); font-size: 0.9rem;">
+                  AUC ranges from 0 to 1, where 1 represents a perfect classifier and 0.5 represents a random classifier.
+                </p>
+              </div>
+            </div>
+
+            <div class="data-viz">
+              <h3>Precision-Recall Curve</h3>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+                The Precision-Recall curve is particularly useful when dealing with imbalanced datasets. It shows the trade-off 
+                between precision and recall at different thresholds.
+              </p>
+              <div id="pr-curve" style="height: 500px;"></div>
+            </div>
+
+            <div class="data-viz">
+              <h3>Model Performance Metrics</h3>
+              <div id="metrics-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <!-- Metrics will be populated by JavaScript -->
+              </div>
+            </div>
+
+            <h2>Regression Model Evaluation</h2>
+            <p>
+              For regression problems, we evaluate models using different metrics that measure prediction accuracy.
+            </p>
+
+            <div class="data-viz">
+              <h3>Predicted vs Actual Values</h3>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+                A scatter plot of predicted vs actual values helps visualize how well the model performs. 
+                Points closer to the diagonal line indicate better predictions.
+              </p>
+              <div id="predicted-actual" style="height: 500px;"></div>
+            </div>
+
+            <div class="data-viz">
+              <h3>Residual Analysis</h3>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+                Residual plots help identify patterns in prediction errors. Ideally, residuals should be randomly 
+                distributed around zero with no clear patterns.
+              </p>
+              <div id="residual-plot" style="height: 400px;"></div>
+            </div>
+
+            <div class="data-viz">
+              <h3>Regression Metrics</h3>
+              <div id="regression-metrics" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <!-- Metrics will be populated by JavaScript -->
+              </div>
+            </div>
+
+            <h2>Model Comparison</h2>
+            <p>
+              Comparing multiple models helps identify the best performing one. Let's visualize the performance 
+              of different algorithms side by side.
+            </p>
+
+            <div class="data-viz">
+              <h3>Model Performance Comparison</h3>
+              <div id="model-comparison" style="height: 500px;"></div>
+            </div>
+
+            <h2>Code Example</h2>
+            <p>Here's a sample Python code snippet for model evaluation:</p>
+            <pre><code>from sklearn.metrics import (
+    confusion_matrix, roc_curve, auc, 
+    precision_recall_curve, mean_squared_error, r2_score
+)
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Classification metrics
+def evaluate_classifier(y_true, y_pred, y_proba):
+    # Confusion Matrix
+    cm = confusion_matrix(y_true, y_pred)
+    
+    # ROC Curve
+    fpr, tpr, _ = roc_curve(y_true, y_proba)
+    roc_auc = auc(fpr, tpr)
+    
+    # Precision-Recall Curve
+    precision, recall, _ = precision_recall_curve(y_true, y_proba)
+    
+    # Calculate metrics
+    accuracy = (y_true == y_pred).mean()
+    precision_score = precision.mean()
+    recall_score = recall.mean()
+    f1 = 2 * (precision_score * recall_score) / (precision_score + recall_score)
+    
+    return {
+        'confusion_matrix': cm,
+        'roc_curve': (fpr, tpr, roc_auc),
+        'pr_curve': (precision, recall),
+        'metrics': {
+            'accuracy': accuracy,
+            'precision': precision_score,
+            'recall': recall_score,
+            'f1_score': f1,
+            'auc': roc_auc
+        }
+    }
+
+# Regression metrics
+def evaluate_regressor(y_true, y_pred):
+    mse = mean_squared_error(y_true, y_pred)
+    rmse = np.sqrt(mse)
+    mae = np.mean(np.abs(y_true - y_pred))
+    r2 = r2_score(y_true, y_pred)
+    
+    residuals = y_true - y_pred
+    
+    return {
+        'mse': mse,
+        'rmse': rmse,
+        'mae': mae,
+        'r2': r2,
+        'residuals': residuals
+    }</code></pre>
+
+            <h2>Key Takeaways</h2>
+            <ul style="line-height: 2; margin-left: 2rem;">
+              <li><strong>Classification:</strong> Use confusion matrix, ROC curve, and precision-recall curve for comprehensive evaluation</li>
+              <li><strong>Regression:</strong> Combine multiple metrics (RMSE, MAE, R²) and visualize residuals</li>
+              <li><strong>Imbalanced Data:</strong> Precision-recall curve is more informative than ROC curve</li>
+              <li><strong>Model Selection:</strong> Compare multiple models using consistent evaluation metrics</li>
+              <li><strong>Visualization:</strong> Always visualize results to understand model behavior beyond metrics</li>
+            </ul>
+
+            <h2>Conclusion</h2>
+            <p>
+              Effective model evaluation requires understanding both metrics and visualizations. While metrics provide 
+              quantitative measures, visualizations reveal patterns and potential issues that numbers alone might miss. 
+              Always use multiple evaluation techniques to get a comprehensive understanding of your model's performance.
+            </p>
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <footer class="footer">
+      <section class="container">
+        <p>© 2024 Kishore R. Anekalla</p>
+      </section>
+    </footer>
+
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+      <i class="fas fa-moon" id="theme-icon"></i>
+    </button>
+  </main>
+
+  <script>
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const html = document.documentElement;
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme);
+    
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcon(newTheme);
+    });
+    
+    function updateThemeIcon(theme) {
+      if (theme === 'dark') {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+      } else {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+      }
+    }
+
+    // Generate sample classification data
+    function generateClassificationData() {
+      const n = 1000;
+      const yTrue = Array.from({length: n}, () => Math.random() > 0.4 ? 1 : 0);
+      const yProba = yTrue.map((label, i) => {
+        // Add some noise to probabilities
+        const baseProb = label === 1 ? 0.7 : 0.3;
+        return Math.max(0, Math.min(1, baseProb + (Math.random() - 0.5) * 0.4));
+      });
+      const yPred = yProba.map(p => p > 0.5 ? 1 : 0);
+      
+      return { yTrue, yPred, yProba };
+    }
+
+    // Generate sample regression data
+    function generateRegressionData() {
+      const n = 200;
+      const x = Array.from({length: n}, (_, i) => i);
+      const yTrue = x.map(val => 2 * val + 10 + (Math.random() - 0.5) * 20);
+      const yPred = x.map(val => 2.1 * val + 9 + (Math.random() - 0.5) * 15);
+      
+      return { x, yTrue, yPred };
+    }
+
+    const classData = generateClassificationData();
+    const regData = generateRegressionData();
+
+    // Confusion Matrix
+    function calculateConfusionMatrix(yTrue, yPred) {
+      const cm = [[0, 0], [0, 0]];
+      yTrue.forEach((trueVal, i) => {
+        cm[trueVal][yPred[i]]++;
+      });
+      return cm;
+    }
+
+    const cm = calculateConfusionMatrix(classData.yTrue, classData.yPred);
+    const total = cm[0][0] + cm[0][1] + cm[1][0] + cm[1][1];
+    const accuracy = (cm[0][0] + cm[1][1]) / total;
+    const precision = cm[1][1] / (cm[1][1] + cm[1][0]);
+    const recall = cm[1][1] / (cm[1][1] + cm[0][1]);
+    const f1 = 2 * (precision * recall) / (precision + recall);
+
+    Plotly.newPlot('confusion-matrix', [{
+      z: [[cm[0][0], cm[0][1]], [cm[1][0], cm[1][1]]],
+      x: ['Predicted: 0', 'Predicted: 1'],
+      y: ['Actual: 0', 'Actual: 1'],
+      type: 'heatmap',
+      colorscale: 'Blues',
+      text: [[`${cm[0][0]}`, `${cm[0][1]}`], [`${cm[1][0]}`, `${cm[1][1]}`]],
+      texttemplate: '%{text}',
+      textfont: { size: 16, color: 'white' },
+      showscale: true
+    }], {
+      title: 'Confusion Matrix',
+      template: 'plotly_white',
+      margin: { t: 50, b: 50, l: 100, r: 50 }
+    });
+
+    // ROC Curve
+    function calculateROC(yTrue, yProba) {
+      const thresholds = Array.from({length: 100}, (_, i) => i / 100).reverse();
+      const fpr = [];
+      const tpr = [];
+      
+      thresholds.forEach(threshold => {
+        const yPred = yProba.map(p => p >= threshold ? 1 : 0);
+        let tp = 0, fp = 0, tn = 0, fn = 0;
+        
+        yTrue.forEach((trueVal, i) => {
+          if (trueVal === 1 && yPred[i] === 1) tp++;
+          else if (trueVal === 0 && yPred[i] === 1) fp++;
+          else if (trueVal === 0 && yPred[i] === 0) tn++;
+          else fn++;
+        });
+        
+        fpr.push(fp / (fp + tn));
+        tpr.push(tp / (tp + fn));
+      });
+      
+      // Calculate AUC using trapezoidal rule
+      let auc = 0;
+      for (let i = 1; i < fpr.length; i++) {
+        auc += (fpr[i] - fpr[i-1]) * (tpr[i] + tpr[i-1]) / 2;
+      }
+      
+      return { fpr, tpr, auc };
+    }
+
+    const roc = calculateROC(classData.yTrue, classData.yProba);
+    document.getElementById('auc-score').textContent = roc.auc.toFixed(3);
+
+    Plotly.newPlot('roc-curve', [{
+      x: roc.fpr,
+      y: roc.tpr,
+      type: 'scatter',
+      mode: 'lines',
+      name: 'ROC Curve',
+      line: { color: '#2563eb', width: 3 }
+    }, {
+      x: [0, 1],
+      y: [0, 1],
+      type: 'scatter',
+      mode: 'lines',
+      name: 'Random Classifier',
+      line: { color: '#6b7280', dash: 'dash', width: 2 }
+    }], {
+      title: 'ROC Curve',
+      xaxis: { title: 'False Positive Rate' },
+      yaxis: { title: 'True Positive Rate' },
+      template: 'plotly_white',
+      margin: { t: 50, b: 50, l: 50, r: 50 }
+    });
+
+    // Precision-Recall Curve
+    function calculatePR(yTrue, yProba) {
+      const thresholds = Array.from({length: 100}, (_, i) => i / 100).reverse();
+      const precision = [];
+      const recall = [];
+      
+      thresholds.forEach(threshold => {
+        const yPred = yProba.map(p => p >= threshold ? 1 : 0);
+        let tp = 0, fp = 0, fn = 0;
+        
+        yTrue.forEach((trueVal, i) => {
+          if (trueVal === 1 && yPred[i] === 1) tp++;
+          else if (trueVal === 0 && yPred[i] === 1) fp++;
+          else if (trueVal === 1 && yPred[i] === 0) fn++;
+        });
+        
+        const prec = tp + fp > 0 ? tp / (tp + fp) : 0;
+        const rec = tp + fn > 0 ? tp / (tp + fn) : 0;
+        precision.push(prec);
+        recall.push(rec);
+      });
+      
+      return { precision, recall };
+    }
+
+    const pr = calculatePR(classData.yTrue, classData.yProba);
+
+    Plotly.newPlot('pr-curve', [{
+      x: pr.recall,
+      y: pr.precision,
+      type: 'scatter',
+      mode: 'lines',
+      name: 'Precision-Recall Curve',
+      line: { color: '#7c3aed', width: 3 }
+    }], {
+      title: 'Precision-Recall Curve',
+      xaxis: { title: 'Recall' },
+      yaxis: { title: 'Precision' },
+      template: 'plotly_white',
+      margin: { t: 50, b: 50, l: 50, r: 50 }
+    });
+
+    // Classification Metrics Grid
+    const metricsDiv = document.getElementById('metrics-grid');
+    metricsDiv.innerHTML = `
+      <div class="card" style="text-align: center; padding: 1.5rem;">
+        <h3 style="font-size: 2rem; color: var(--primary-color); margin-bottom: 0.5rem;">${(accuracy * 100).toFixed(1)}%</h3>
+        <p style="color: var(--text-secondary);">Accuracy</p>
+      </div>
+      <div class="card" style="text-align: center; padding: 1.5rem;">
+        <h3 style="font-size: 2rem; color: var(--primary-color); margin-bottom: 0.5rem;">${precision.toFixed(3)}</h3>
+        <p style="color: var(--text-secondary);">Precision</p>
+      </div>
+      <div class="card" style="text-align: center; padding: 1.5rem;">
+        <h3 style="font-size: 2rem; color: var(--primary-color); margin-bottom: 0.5rem;">${recall.toFixed(3)}</h3>
+        <p style="color: var(--text-secondary);">Recall</p>
+      </div>
+      <div class="card" style="text-align: center; padding: 1.5rem;">
+        <h3 style="font-size: 2rem; color: var(--primary-color); margin-bottom: 0.5rem;">${f1.toFixed(3)}</h3>
+        <p style="color: var(--text-secondary);">F1 Score</p>
+      </div>
+      <div class="card" style="text-align: center; padding: 1.5rem;">
+        <h3 style="font-size: 2rem; color: var(--primary-color); margin-bottom: 0.5rem;">${roc.auc.toFixed(3)}</h3>
+        <p style="color: var(--text-secondary);">AUC</p>
+      </div>
+    `;
+
+    // Predicted vs Actual (Regression)
+    Plotly.newPlot('predicted-actual', [{
+      x: regData.yTrue,
+      y: regData.yPred,
+      type: 'scatter',
+      mode: 'markers',
+      marker: { color: '#2563eb', size: 8, opacity: 0.6 },
+      name: 'Predictions'
+    }, {
+      x: [Math.min(...regData.yTrue, ...regData.yPred), Math.max(...regData.yTrue, ...regData.yPred)],
+      y: [Math.min(...regData.yTrue, ...regData.yPred), Math.max(...regData.yTrue, ...regData.yPred)],
+      type: 'scatter',
+      mode: 'lines',
+      name: 'Perfect Prediction',
+      line: { color: '#6b7280', dash: 'dash', width: 2 }
+    }], {
+      title: 'Predicted vs Actual Values',
+      xaxis: { title: 'Actual Values' },
+      yaxis: { title: 'Predicted Values' },
+      template: 'plotly_white',
+      margin: { t: 50, b: 50, l: 50, r: 50 }
+    });
+
+    // Residual Plot
+    const residuals = regData.yTrue.map((actual, i) => actual - regData.yPred[i]);
+    Plotly.newPlot('residual-plot', [{
+      x: regData.yPred,
+      y: residuals,
+      type: 'scatter',
+      mode: 'markers',
+      marker: { color: '#ef4444', size: 8, opacity: 0.6 },
+      name: 'Residuals'
+    }, {
+      x: [Math.min(...regData.yPred), Math.max(...regData.yPred)],
+      y: [0, 0],
+      type: 'scatter',
+      mode: 'lines',
+      name: 'Zero Residual',
+      line: { color: '#6b7280', dash: 'dash', width: 2 }
+    }], {
+      title: 'Residual Plot',
+      xaxis: { title: 'Predicted Values' },
+      yaxis: { title: 'Residuals (Actual - Predicted)' },
+      template: 'plotly_white',
+      margin: { t: 50, b: 50, l: 50, r: 50 }
+    });
+
+    // Regression Metrics
+    const mse = residuals.reduce((sum, r) => sum + r * r, 0) / residuals.length;
+    const rmse = Math.sqrt(mse);
+    const mae = residuals.reduce((sum, r) => sum + Math.abs(r), 0) / residuals.length;
+    const meanActual = regData.yTrue.reduce((a, b) => a + b, 0) / regData.yTrue.length;
+    const ssRes = residuals.reduce((sum, r) => sum + r * r, 0);
+    const ssTot = regData.yTrue.reduce((sum, val) => sum + Math.pow(val - meanActual, 2), 0);
+    const r2 = 1 - (ssRes / ssTot);
+
+    const regMetricsDiv = document.getElementById('regression-metrics');
+    regMetricsDiv.innerHTML = `
+      <div class="card" style="text-align: center; padding: 1.5rem;">
+        <h3 style="font-size: 2rem; color: var(--primary-color); margin-bottom: 0.5rem;">${rmse.toFixed(2)}</h3>
+        <p style="color: var(--text-secondary);">RMSE</p>
+      </div>
+      <div class="card" style="text-align: center; padding: 1.5rem;">
+        <h3 style="font-size: 2rem; color: var(--primary-color); margin-bottom: 0.5rem;">${mae.toFixed(2)}</h3>
+        <p style="color: var(--text-secondary);">MAE</p>
+      </div>
+      <div class="card" style="text-align: center; padding: 1.5rem;">
+        <h3 style="font-size: 2rem; color: var(--primary-color); margin-bottom: 0.5rem;">${mse.toFixed(2)}</h3>
+        <p style="color: var(--text-secondary);">MSE</p>
+      </div>
+      <div class="card" style="text-align: center; padding: 1.5rem;">
+        <h3 style="font-size: 2rem; color: var(--primary-color); margin-bottom: 0.5rem;">${r2.toFixed(3)}</h3>
+        <p style="color: var(--text-secondary);">R² Score</p>
+      </div>
+    `;
+
+    // Model Comparison
+    const models = ['Random Forest', 'SVM', 'Logistic Regression', 'Neural Network', 'XGBoost'];
+    const accuracies = [0.92, 0.88, 0.85, 0.90, 0.93];
+    const f1Scores = [0.91, 0.87, 0.84, 0.89, 0.92];
+
+    Plotly.newPlot('model-comparison', [{
+      x: models,
+      y: accuracies,
+      type: 'bar',
+      name: 'Accuracy',
+      marker: { color: '#2563eb' }
+    }, {
+      x: models,
+      y: f1Scores,
+      type: 'bar',
+      name: 'F1 Score',
+      marker: { color: '#7c3aed' }
+    }], {
+      title: 'Model Performance Comparison',
+      xaxis: { title: 'Model' },
+      yaxis: { title: 'Score', range: [0, 1] },
+      barmode: 'group',
+      template: 'plotly_white',
+      margin: { t: 50, b: 100, l: 50, r: 50 }
+    });
+  </script>
+</body>
+
+</html>
+

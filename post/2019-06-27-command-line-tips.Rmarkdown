@@ -1,0 +1,17 @@
+---
+title: Command line tips
+author: ''
+date: '2019-06-27'
+slug: command-line-tips
+categories:
+  - blog
+tags: []
+description: ''
+externalLink: ''
+series: []
+---
+
+```{r}
+system("ls -F")
+```
+
