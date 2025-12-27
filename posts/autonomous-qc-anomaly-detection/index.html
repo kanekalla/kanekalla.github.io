@@ -124,30 +124,30 @@
           <div style="margin-top: 3rem;">
             <h2>Introduction</h2>
             <p>
-              I built an autonomous QC layer on top of omics pipelines that continuously ingests pipeline QC metrics, learns baseline behavior per assay and pipeline step, and automatically flags outliers. The system traces anomalies back to specific tools, parameters, or batches and recommends remediation actions (reruns, parameter changes, or sample exclusion), reducing debugging time and preventing silent QC failures in production workflows.
+              I've been working on building an autonomous QC layer for our omics pipelines, and it's been a game-changer. The system continuously monitors pipeline QC metrics, learns what "normal" looks like for each assay and pipeline step, and automatically flags outliers. What I love about it is that it doesn't just detect problems—it traces anomalies back to specific tools, parameters, or batches and actually recommends what to do about them (reruns, parameter tweaks, or sample exclusion). This has cut down our debugging time significantly and caught issues that would have otherwise slipped through.
             </p>
 
             <p>
-              In this post, I'll walk through the design and implementation of a lightweight v1 system that you can actually build and deploy. We'll cover the core components, implementation details, and provide concrete code examples.
+              I wanted to share how I built this, focusing on a lightweight v1 that you can actually implement. I'll walk through the core components, show you the code I used, and explain the design decisions that made it work in practice.
             </p>
 
             <h2>System Overview</h2>
             <p>
-              The system consists of three main components working together:
+              The system breaks down into three main pieces that work together:
             </p>
             <ol>
-              <li><strong>QC Metrics Collector</strong> - Normalizes and stores QC metrics from pipeline runs</li>
-              <li><strong>QC Anomaly Detector</strong> - Learns baseline patterns and flags outliers using robust statistics</li>
-              <li><strong>Explanation & Remediation Recommender</strong> - The agentic layer that reasons over anomalies and proposes actions</li>
+              <li><strong>QC Metrics Collector</strong> - Pulls together all the QC metrics from your pipeline runs into one place</li>
+              <li><strong>QC Anomaly Detector</strong> - Learns what normal looks like and flags when things are off</li>
+              <li><strong>Explanation & Remediation Recommender</strong> - This is the "agentic" part—it figures out what went wrong and suggests fixes</li>
             </ol>
 
             <div class="highlight-box">
-              <strong>Scope for v1:</strong> To keep this simple but impactful, we'll constrain v1 to one assay type (e.g., bulk RNA-seq), one pipeline (your existing Airflow or Nextflow RNA-seq pipeline), and a manageable set of QC metrics collected per sample and per step.
+              <strong>Keeping it simple for v1:</strong> I started with one assay type (bulk RNA-seq) and one pipeline (our existing Airflow setup). This let me focus on getting the core logic right without getting overwhelmed. You can always expand later once you have the foundation working.
             </div>
 
             <h2>QC Metrics: What to Collect</h2>
             <p>
-              For a v1 implementation focused on RNA-seq, here are the key QC metrics to track:
+              For RNA-seq, I focused on the metrics that actually matter. Here's what I'm tracking:
             </p>
 
             <h3>Per Sample Metrics</h3>
@@ -173,10 +173,10 @@
             <div class="system-component">
               <h3>1. QC Metrics Collector</h3>
               <p>
-                <strong>Goal:</strong> Normalize all QC metrics into a single table or DataFrame.
+                The first challenge was getting all the QC metrics into one place. Our pipeline outputs metrics in different formats (FastQC HTML, Picard text files, STAR logs), so I needed a way to normalize everything.
               </p>
               
-              <p><strong>Schema (conceptual):</strong></p>
+              <p>I ended up with a simple schema that captures what I need:</p>
               <ul>
                 <li><code>sample_id</code></li>
                 <li><code>batch_id</code></li>
@@ -189,33 +189,30 @@
               </ul>
 
               <p>
-                <strong>Implementation:</strong> At the end of each major step in your Airflow DAG, add a small task that:
+                In practice, I added a small task at the end of each major step in our Airflow DAG that:
               </p>
               <ul>
-                <li>Parses QC outputs (FastQC, Picard, STAR logs, etc.)</li>
-                <li>Writes metrics into a central store: e.g., a Postgres table, a Parquet file in object storage, or a <code>qc_metrics.csv</code> that you append to</li>
+                <li>Parses the QC outputs (FastQC, Picard, STAR logs, etc.)</li>
+                <li>Writes everything into a central store—I started with a simple CSV file, but you could use Postgres or Parquet files in object storage</li>
               </ul>
             </div>
 
             <div class="system-component">
               <h3>2. QC Anomaly Detector</h3>
               <p>
-                <strong>Goal:</strong> Learn "what's normal" for each metric and flag outliers per new run.
+                This is where it gets interesting. The goal is to learn what "normal" looks like for each metric and flag when something's off.
               </p>
 
               <p>
-                For v1, we'll use a simple and robust approach:
+                I went with a simple but robust approach using median and MAD (Median Absolute Deviation). Why? Because QC metrics can be messy—outliers in your training data shouldn't break your baseline. Standard deviation gets thrown off by outliers, but median and MAD are much more resilient.
               </p>
 
               <p>
-                <strong>Group by:</strong> <code>(assay_type, pipeline_step, metric_name)</code>
-              </p>
-
-              <p>
-                <strong>For each group:</strong>
+                Here's how it works:
               </p>
               <ul>
-                <li>Use robust statistics to get baseline:
+                <li>Group metrics by <code>(assay_type, pipeline_step, metric_name)</code>—this way, alignment metrics are compared to other alignment metrics, not trimming metrics</li>
+                <li>For each group, compute:
                   <ul>
                     <li>Median: <em>m</em></li>
                     <li>Median Absolute Deviation (MAD): <em>MAD</em></li>
@@ -224,29 +221,29 @@
                 <li>For a new metric value <em>x</em>, compute a robust z-score:
                   <pre><code>z = (x - m) / (1.4826 * MAD + ε)</code></pre>
                 </li>
-                <li>Flag anomalies where |z| > z_threshold (e.g., 3)</li>
+                <li>Flag anything where |z| > 3 (or whatever threshold works for you)</li>
               </ul>
 
               <p>
-                You can also add per-batch comparison: compare a new batch's distribution vs historical distribution. Optionally, use IsolationForest or similar if you want ML-based anomaly detection.
+                You could get fancier with per-batch comparisons or ML-based approaches like IsolationForest, but honestly, this simple method has worked really well for us. Start simple, iterate later.
               </p>
             </div>
 
             <div class="system-component">
               <h3>3. Explanation & Remediation Recommender (Agentic Layer)</h3>
               <p>
-                This is where you add "agentic" behavior: reasoning over anomalies and proposing actions.
+                This is the part that makes it feel "agentic"—the system doesn't just say "something's wrong," it figures out what probably went wrong and suggests what to do about it.
               </p>
 
               <p>
-                v1 can be rules + templated output; v1.5 can add an LLM. The rule-based approach creates a simple mapping from <code>(metric_name, direction)</code> → <code>likely_cause</code>, <code>suggested_action</code>.
+                For v1, I kept it simple with rule-based logic. You could add an LLM later (v1.5?), but honestly, rules work great when you have domain knowledge. The idea is to map <code>(metric_name, direction)</code> to likely causes and suggested actions.
               </p>
 
-              <p><strong>Example mappings:</strong></p>
+              <p>Here are some examples from what I've built:</p>
               <ul>
-                <li><strong>pct_mapped very low</strong> → Causes: wrong reference, contamination, sample swap. Actions: verify reference build, check sample sheet, re-run alignment with stricter QC.</li>
-                <li><strong>duplication_rate very high</strong> → Causes: low input, over-amplification, library prep issues. Actions: review library prep batch, consider excluding sample or re-sequencing.</li>
-                <li><strong>pct_rRNA very high</strong> → Causes: failed rRNA depletion. Actions: flag batch, review wet-lab protocol, possibly drop/re-run subset.</li>
+                <li><strong>pct_mapped very low</strong> → Usually means wrong reference genome, contamination, or sample swap. I have it suggest: verify the reference build, check the sample sheet, and re-run alignment with stricter QC if needed.</li>
+                <li><strong>duplication_rate very high</strong> → Often indicates low input, over-amplification, or library prep issues. The system recommends reviewing the library prep batch and considering excluding the sample or re-sequencing.</li>
+                <li><strong>pct_rRNA very high</strong> → Classic sign of failed rRNA depletion. It flags the batch and suggests reviewing the wet-lab protocol, possibly dropping or re-running that subset.</li>
               </ul>
             </div>
 
@@ -254,7 +251,7 @@
 
             <h3>Baseline Computation and Anomaly Detection</h3>
             <p>
-              Here's the core Python implementation for computing baselines and detecting anomalies:
+              Here's the core code I'm using. It's pretty straightforward:
             </p>
 
             <pre><code>import pandas as pd
@@ -325,7 +322,7 @@ def detect_anomalies(qc_new: pd.DataFrame, baselines: pd.DataFrame):
 
             <h3>Rule-Based Explanation and Remediation</h3>
             <p>
-              The agentic layer uses domain knowledge to map anomalies to causes and actions:
+              The agentic part uses simple rules based on domain knowledge. Here's how I set it up:
             </p>
 
             <pre><code>RULES = [
@@ -385,7 +382,7 @@ def explain_and_recommend(anomalies: pd.DataFrame):
 
             <h3>Putting It All Together</h3>
             <p>
-              Here's how you'd orchestrate the full system:
+              Here's how I wired everything together:
             </p>
 
             <pre><code>def run_qc_agent(qc_history_path: str, qc_new_path: str, output_path: str):
@@ -442,7 +439,7 @@ def generate_markdown_report(recommendations: pd.DataFrame, output_path: str):
 
             <h2>Integration with Airflow</h2>
             <p>
-              To integrate this into your existing pipeline, you can add a task at the end of your DAG:
+              To hook this into our existing pipeline, I added a task at the end of the DAG. Here's what it looks like:
             </p>
 
             <pre><code>from airflow import DAG
@@ -476,32 +473,32 @@ qc_check = PythonOperator(
 
             <h2>Future Enhancements</h2>
             <p>
-              Once v1 is working, you can enhance it with:
+              Now that v1 is working, I'm thinking about what's next. Some ideas I'm considering:
             </p>
             <ul>
-              <li><strong>ML-based detection:</strong> Use IsolationForest or autoencoders for more sophisticated anomaly detection</li>
-              <li><strong>LLM integration:</strong> Use an LLM to generate more nuanced explanations and recommendations</li>
-              <li><strong>Batch-level analysis:</strong> Compare entire batch distributions against historical patterns</li>
-              <li><strong>Automated remediation:</strong> Automatically trigger reruns or parameter adjustments for certain anomaly types</li>
-              <li><strong>Multi-assay support:</strong> Extend to other omics types (WGS, ATAC-seq, etc.)</li>
+              <li><strong>ML-based detection:</strong> Maybe try IsolationForest or autoencoders for more sophisticated anomaly detection, though honestly the simple approach is working well</li>
+              <li><strong>LLM integration:</strong> Could use an LLM to generate more nuanced explanations and recommendations, but the rule-based system is pretty good for now</li>
+              <li><strong>Batch-level analysis:</strong> Compare entire batch distributions against historical patterns—this could catch systematic issues</li>
+              <li><strong>Automated remediation:</strong> For certain anomaly types, automatically trigger reruns or parameter adjustments</li>
+              <li><strong>Multi-assay support:</strong> Extend to other omics types (WGS, ATAC-seq, etc.)—the framework should generalize pretty easily</li>
             </ul>
 
             <h2>Conclusion</h2>
             <p>
-              This autonomous QC system provides a practical, implementable v1 that adds real value to production omics pipelines. By learning baseline behavior and automatically flagging anomalies with actionable recommendations, it reduces debugging time and prevents silent QC failures. The modular design makes it easy to extend and enhance as you gather more data and refine your rules.
+              This system has been really useful for us. It's cut down on debugging time and caught issues that would have otherwise gone unnoticed. The modular design makes it easy to extend—I've already added a few new rules as we've encountered new edge cases.
             </p>
 
             <p>
-              The key to success is starting simple: focus on one assay type, collect the right metrics, and build robust baseline models. Once that's working, the agentic reasoning layer becomes straightforward to add, and you can iterate from there.
+              If you're thinking about building something similar, my advice is to start simple. Focus on one assay type, collect the metrics that actually matter, and build robust baseline models. Once that foundation is working, adding the agentic reasoning layer is pretty straightforward. Then you can iterate and improve as you go.
             </p>
 
             <div class="highlight-box">
-              <strong>Key Takeaways:</strong>
+              <strong>What I learned:</strong>
               <ul style="margin-top: 0.5rem;">
-                <li>Use robust statistics (median, MAD) for baseline computation</li>
-                <li>Start with rule-based explanations; add ML/LLM later</li>
-                <li>Integrate seamlessly into existing pipelines</li>
-                <li>Focus on actionable recommendations, not just detection</li>
+                <li>Robust statistics (median, MAD) work great for messy QC data</li>
+                <li>Rule-based explanations are often enough—you don't need ML/LLM from day one</li>
+                <li>Integrating into existing pipelines is easier than building from scratch</li>
+                <li>The real value is in actionable recommendations, not just flagging problems</li>
               </ul>
             </div>
           </div>
