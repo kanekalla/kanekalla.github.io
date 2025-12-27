@@ -474,39 +474,6 @@ qc_check = PythonOperator(
 )
 </code></pre>
 
-            <h2>Concrete Implementation Plan (2-3 Weeks)</h2>
-
-            <h3>Week 1: Foundation</h3>
-            <ul>
-              <li>Select one pipeline (RNA-seq) and list 8–12 QC metrics</li>
-              <li>Add small tasks to your pipeline to write these metrics to a single <code>qc_metrics</code> table/file</li>
-              <li>Build a simple script/notebook to:
-                <ul>
-                  <li>Load historical <code>qc_metrics</code></li>
-                  <li>Compute baselines (median, MAD)</li>
-                  <li>Run anomaly detection on one recent batch</li>
-                </ul>
-              </li>
-            </ul>
-
-            <h3>Week 2: Agentic Layer</h3>
-            <ul>
-              <li>Add the explanation + recommendation rule engine</li>
-              <li>Wrap the whole logic into:
-                <ul>
-                  <li>A Python module with <code>run_qc_agent()</code></li>
-                  <li>One Airflow DAG or task that runs after each pipeline completion</li>
-                </ul>
-              </li>
-            </ul>
-
-            <h3>Week 3: Polish and Deployment</h3>
-            <ul>
-              <li>Add reporting (markdown, email, or Slack notifications)</li>
-              <li>Test on production data</li>
-              <li>Iterate on rules based on real anomalies</li>
-            </ul>
-
             <h2>Future Enhancements</h2>
             <p>
               Once v1 is working, you can enhance it with:
