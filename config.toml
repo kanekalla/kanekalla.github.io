@@ -21,9 +21,9 @@ paginatePath = "page"
 
 [params]
   author = "Kishore R. Anekalla"
-  description = "PhD Candidate in Computational Biology | Data Science | Machine Learning | Bioinformatics"
+  description = "Bioinformatics | Computational Bio | ML | Data Science"
   keywords = ["computational biology", "data science", "machine learning", "bioinformatics", "research", "statistics"]
-  info = "PhD Candidate in Computational Biology"
+  info = "Bioinformatics | Computational Bio | ML | Data Science"
   
   # Social links
   [[params.social]]
