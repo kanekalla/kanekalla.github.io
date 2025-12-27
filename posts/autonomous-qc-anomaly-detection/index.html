@@ -473,31 +473,31 @@ qc_check = PythonOperator(
 
             <h2>Future Enhancements</h2>
             <p>
-              Now that v1 is working, I'm thinking about what's next. Some ideas I'm considering:
+              The current system is working well, but there's always room to improve. Here are some directions I'm exploring:
             </p>
             <ul>
-              <li><strong>ML-based detection:</strong> Maybe try IsolationForest or autoencoders for more sophisticated anomaly detection, though honestly the simple approach is working well</li>
-              <li><strong>LLM integration:</strong> Could use an LLM to generate more nuanced explanations and recommendations, but the rule-based system is pretty good for now</li>
-              <li><strong>Batch-level analysis:</strong> Compare entire batch distributions against historical patterns—this could catch systematic issues</li>
-              <li><strong>Automated remediation:</strong> For certain anomaly types, automatically trigger reruns or parameter adjustments</li>
-              <li><strong>Multi-assay support:</strong> Extend to other omics types (WGS, ATAC-seq, etc.)—the framework should generalize pretty easily</li>
+              <li><strong>ML-based detection:</strong> Experimenting with IsolationForest or autoencoders for more sophisticated anomaly detection. The simple statistical approach works great, but ML might catch more subtle patterns.</li>
+              <li><strong>LLM integration:</strong> Using an LLM to generate more nuanced explanations and recommendations could be powerful, especially for complex multi-metric anomalies. The rule-based system handles most cases, but there's potential for more contextual reasoning.</li>
+              <li><strong>Batch-level analysis:</strong> Comparing entire batch distributions against historical patterns could catch systematic issues that individual sample analysis might miss—like batch effects or protocol drift.</li>
+              <li><strong>Automated remediation:</strong> For well-understood anomaly types, automatically triggering reruns or parameter adjustments could save even more time. This needs careful validation first, but it's a natural next step.</li>
+              <li><strong>Multi-assay support:</strong> The framework should generalize to other omics types (WGS, ATAC-seq, etc.). The main work is defining the right QC metrics for each assay type and building the corresponding rules.</li>
             </ul>
 
             <h2>Conclusion</h2>
             <p>
-              This system has been really useful for us. It's cut down on debugging time and caught issues that would have otherwise gone unnoticed. The modular design makes it easy to extend—I've already added a few new rules as we've encountered new edge cases.
+              This system has been really useful for us—it's cut down on debugging time and caught issues that would have otherwise gone unnoticed. The modular design makes it easy to extend, and I've already added new rules as we've encountered edge cases.
             </p>
 
             <p>
-              If you're thinking about building something similar, my advice is to start simple. Focus on one assay type, collect the metrics that actually matter, and build robust baseline models. Once that foundation is working, adding the agentic reasoning layer is pretty straightforward. Then you can iterate and improve as you go.
+              If you're building something similar, I'd recommend starting simple. Focus on one assay type, collect the metrics that actually matter, and build robust baseline models. Once that foundation is working, adding the agentic reasoning layer is pretty straightforward. Then you can iterate and improve as you go.
             </p>
 
             <div class="highlight-box">
-              <strong>What I learned:</strong>
+              <strong>A few things to keep in mind:</strong>
               <ul style="margin-top: 0.5rem;">
-                <li>Robust statistics (median, MAD) work great for messy QC data</li>
-                <li>Rule-based explanations are often enough—you don't need ML/LLM from day one</li>
-                <li>Integrating into existing pipelines is easier than building from scratch</li>
+                <li>Robust statistics (median, MAD) handle messy QC data better than mean/std</li>
+                <li>Rule-based explanations are often sufficient—you don't need ML/LLM from day one</li>
+                <li>Integrating into existing pipelines is usually easier than building from scratch</li>
                 <li>The real value is in actionable recommendations, not just flagging problems</li>
               </ul>
             </div>
