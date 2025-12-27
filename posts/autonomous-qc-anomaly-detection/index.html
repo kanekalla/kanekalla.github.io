@@ -124,7 +124,7 @@
           <div style="margin-top: 3rem;">
             <h2>Introduction</h2>
             <p>
-              I've been working on building an autonomous QC layer for our omics pipelines, and it's been a game-changer. The system continuously monitors pipeline QC metrics, learns what "normal" looks like for each assay and pipeline step, and automatically flags outliers. What I love about it is that it doesn't just detect problems—it traces anomalies back to specific tools, parameters, or batches and actually recommends what to do about them (reruns, parameter tweaks, or sample exclusion). This has cut down our debugging time significantly and caught issues that would have otherwise slipped through.
+              I've been working on building an autonomous QC layer for the omics pipelines I work with, and it's been a game-changer. The system continuously monitors pipeline QC metrics, learns what "normal" looks like for each assay and pipeline step, and automatically flags outliers. What I love about it is that it doesn't just detect problems—it traces anomalies back to specific tools, parameters, or batches and actually recommends what to do about them (reruns, parameter tweaks, or sample exclusion). This has cut down debugging time significantly and caught issues that would have otherwise slipped through.
             </p>
 
             <p>
@@ -142,7 +142,7 @@
             </ol>
 
             <div class="highlight-box">
-              <strong>Keeping it simple for v1:</strong> I started with one assay type (bulk RNA-seq) and one pipeline (our existing Airflow setup). This let me focus on getting the core logic right without getting overwhelmed. You can always expand later once you have the foundation working.
+              <strong>Keeping it simple for v1:</strong> I started with one assay type (bulk RNA-seq) and one pipeline (the existing Airflow setup I was working with). This let me focus on getting the core logic right without getting overwhelmed. You can always expand later once you have the foundation working.
             </div>
 
             <h2>QC Metrics: What to Collect</h2>
@@ -173,7 +173,7 @@
             <div class="system-component">
               <h3>1. QC Metrics Collector</h3>
               <p>
-                The first challenge was getting all the QC metrics into one place. Our pipeline outputs metrics in different formats (FastQC HTML, Picard text files, STAR logs), so I needed a way to normalize everything.
+                The first challenge was getting all the QC metrics into one place. The pipeline outputs metrics in different formats (FastQC HTML, Picard text files, STAR logs), so I needed a way to normalize everything.
               </p>
               
               <p>I ended up with a simple schema that captures what I need:</p>
@@ -189,7 +189,7 @@
               </ul>
 
               <p>
-                In practice, I added a small task at the end of each major step in our Airflow DAG that:
+                In practice, I added a small task at the end of each major step in the Airflow DAG that:
               </p>
               <ul>
                 <li>Parses the QC outputs (FastQC, Picard, STAR logs, etc.)</li>
@@ -225,7 +225,7 @@
               </ul>
 
               <p>
-                You could get fancier with per-batch comparisons or ML-based approaches like IsolationForest, but honestly, this simple method has worked really well for us. Start simple, iterate later.
+                You could get fancier with per-batch comparisons or ML-based approaches like IsolationForest, but honestly, this simple method has worked really well for me. Start simple, iterate later.
               </p>
             </div>
 
@@ -439,7 +439,7 @@ def generate_markdown_report(recommendations: pd.DataFrame, output_path: str):
 
             <h2>Integration with Airflow</h2>
             <p>
-              To hook this into our existing pipeline, I added a task at the end of the DAG. Here's what it looks like:
+              To hook this into the existing pipeline, I added a task at the end of the DAG. Here's what it looks like:
             </p>
 
             <pre><code>from airflow import DAG
@@ -485,7 +485,7 @@ qc_check = PythonOperator(
 
             <h2>Conclusion</h2>
             <p>
-              This system has been really useful for us—it's cut down on debugging time and caught issues that would have otherwise gone unnoticed. The modular design makes it easy to extend, and I've already added new rules as we've encountered edge cases.
+              I've developed this system and it's been really useful—it's cut down on debugging time and caught issues that would have otherwise gone unnoticed. The modular design makes it easy to extend, and I've already added new rules as I've encountered edge cases.
             </p>
 
             <p>
