@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Kishore R. Anekalla">
+  <meta name="description" content="Building an autonomous QC and anomaly detection system for omics pipelines using agentic AI">
+  <meta name="keywords" content="bioinformatics, omics, quality control, anomaly detection, agentic AI, machine learning, pipeline automation">
+  
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Autonomous QC and Anomaly Detection for Omics Pipelines"/>
+  
+  <meta property="og:title" content="Autonomous QC and Anomaly Detection for Omics Pipelines" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="/posts/autonomous-qc-anomaly-detection/" />
+  
+  <base href="/posts/autonomous-qc-anomaly-detection/">
+  <title>Autonomous QC and Anomaly Detection for Omics Pipelines · Kishore R. Anekalla</title>
+  <link rel="canonical" href="/posts/autonomous-qc-anomaly-detection/">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Modern CSS -->
+  <link rel="stylesheet" href="/css/modern.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+  
+  <style>
+    pre {
+      background: var(--bg-secondary);
+      padding: 1.5rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+    
+    code {
+      font-family: 'Fira Code', monospace;
+      background: var(--bg-secondary);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+    
+    pre code {
+      background: transparent;
+      padding: 0;
+    }
+    
+    .highlight-box {
+      background: var(--bg-secondary);
+      border-left: 4px solid var(--accent);
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 4px;
+    }
+    
+    .system-component {
+      background: var(--bg-secondary);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+    }
+    
+    .system-component h3 {
+      margin-top: 0;
+      color: var(--accent);
+    }
+    
+    ul, ol {
+      line-height: 1.8;
+    }
+    
+    li {
+      margin: 0.5rem 0;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrapper">
+    <nav class="navigation">
+      <section class="container">
+        <a class="navigation-title" href="/">Kishore R. Anekalla</a>
+        <input type="checkbox" id="menu-toggle" />
+        <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+        <ul class="navigation-list" id="nav-list">
+          <li class="navigation-item"><a class="navigation-link" href="/about/">About</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/cv/cv_kra.pdf">CV</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/posts/">Blog</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/projects/">Projects</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/contact/">Contact</a></li>
+        </ul>
+      </section>
+    </nav>
+
+    <div class="content">
+      <section class="container page">
+        <article>
+          <header>
+            <h1>Autonomous QC and Anomaly Detection for Omics Pipelines</h1>
+            <div style="margin-top: 1rem; color: var(--text-secondary);">
+              <span><i class="far fa-calendar"></i> January 2025</span>
+              <span style="margin-left: 2rem;"><i class="far fa-clock"></i> 15 min read</span>
+            </div>
+            <div style="margin-top: 1rem;">
+              <span style="background: var(--bg-secondary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem; margin-right: 0.5rem;">Bioinformatics</span>
+              <span style="background: var(--bg-secondary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem; margin-right: 0.5rem;">Agentic AI</span>
+              <span style="background: var(--bg-secondary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem; margin-right: 0.5rem;">Machine Learning</span>
+              <span style="background: var(--bg-secondary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem;">Python</span>
+            </div>
+          </header>
+
+          <div style="margin-top: 3rem;">
+            <h2>Introduction</h2>
+            <p>
+              I built an autonomous QC layer on top of omics pipelines that continuously ingests pipeline QC metrics, learns baseline behavior per assay and pipeline step, and automatically flags outliers. The system traces anomalies back to specific tools, parameters, or batches and recommends remediation actions (reruns, parameter changes, or sample exclusion), reducing debugging time and preventing silent QC failures in production workflows.
+            </p>
+
+            <p>
+              In this post, I'll walk through the design and implementation of a lightweight v1 system that you can actually build and deploy. We'll cover the core components, implementation details, and provide concrete code examples.
+            </p>
+
+            <h2>System Overview</h2>
+            <p>
+              The system consists of three main components working together:
+            </p>
+            <ol>
+              <li><strong>QC Metrics Collector</strong> - Normalizes and stores QC metrics from pipeline runs</li>
+              <li><strong>QC Anomaly Detector</strong> - Learns baseline patterns and flags outliers using robust statistics</li>
+              <li><strong>Explanation & Remediation Recommender</strong> - The agentic layer that reasons over anomalies and proposes actions</li>
+            </ol>
+
+            <div class="highlight-box">
+              <strong>Scope for v1:</strong> To keep this simple but impactful, we'll constrain v1 to one assay type (e.g., bulk RNA-seq), one pipeline (your existing Airflow or Nextflow RNA-seq pipeline), and a manageable set of QC metrics collected per sample and per step.
+            </div>
+
+            <h2>QC Metrics: What to Collect</h2>
+            <p>
+              For a v1 implementation focused on RNA-seq, here are the key QC metrics to track:
+            </p>
+
+            <h3>Per Sample Metrics</h3>
+            <ul>
+              <li>Total reads, mapped reads, % mapped</li>
+              <li>% duplicates</li>
+              <li>% rRNA / % mitochondrial reads</li>
+              <li>Insert size mean / std</li>
+              <li>GC content</li>
+              <li>Number of detected genes</li>
+              <li>5'–3' coverage bias (if available)</li>
+              <li>Library complexity estimates (optional)</li>
+            </ul>
+
+            <h3>Per Pipeline Step Metrics</h3>
+            <ul>
+              <li>Runtime, exit status, memory usage</li>
+              <li>Tool name + version (e.g., STAR 2.7.10a, fastp 0.23.3)</li>
+            </ul>
+
+            <h2>System Design: Core Components</h2>
+
+            <div class="system-component">
+              <h3>1. QC Metrics Collector</h3>
+              <p>
+                <strong>Goal:</strong> Normalize all QC metrics into a single table or DataFrame.
+              </p>
+              
+              <p><strong>Schema (conceptual):</strong></p>
+              <ul>
+                <li><code>sample_id</code></li>
+                <li><code>batch_id</code></li>
+                <li><code>assay_type</code> (e.g., rna_seq)</li>
+                <li><code>pipeline_step</code> (e.g., alignment, trimming, qc_summary)</li>
+                <li><code>tool_name</code>, <code>tool_version</code></li>
+                <li><code>metric_name</code> (e.g., pct_mapped, duplication_rate)</li>
+                <li><code>metric_value</code> (numeric)</li>
+                <li><code>run_timestamp</code></li>
+              </ul>
+
+              <p>
+                <strong>Implementation:</strong> At the end of each major step in your Airflow DAG, add a small task that:
+              </p>
+              <ul>
+                <li>Parses QC outputs (FastQC, Picard, STAR logs, etc.)</li>
+                <li>Writes metrics into a central store: e.g., a Postgres table, a Parquet file in object storage, or a <code>qc_metrics.csv</code> that you append to</li>
+              </ul>
+            </div>
+
+            <div class="system-component">
+              <h3>2. QC Anomaly Detector</h3>
+              <p>
+                <strong>Goal:</strong> Learn "what's normal" for each metric and flag outliers per new run.
+              </p>
+
+              <p>
+                For v1, we'll use a simple and robust approach:
+              </p>
+
+              <p>
+                <strong>Group by:</strong> <code>(assay_type, pipeline_step, metric_name)</code>
+              </p>
+
+              <p>
+                <strong>For each group:</strong>
+              </p>
+              <ul>
+                <li>Use robust statistics to get baseline:
+                  <ul>
+                    <li>Median: <em>m</em></li>
+                    <li>Median Absolute Deviation (MAD): <em>MAD</em></li>
+                  </ul>
+                </li>
+                <li>For a new metric value <em>x</em>, compute a robust z-score:
+                  <pre><code>z = (x - m) / (1.4826 * MAD + ε)</code></pre>
+                </li>
+                <li>Flag anomalies where |z| > z_threshold (e.g., 3)</li>
+              </ul>
+
+              <p>
+                You can also add per-batch comparison: compare a new batch's distribution vs historical distribution. Optionally, use IsolationForest or similar if you want ML-based anomaly detection.
+              </p>
+            </div>
+
+            <div class="system-component">
+              <h3>3. Explanation & Remediation Recommender (Agentic Layer)</h3>
+              <p>
+                This is where you add "agentic" behavior: reasoning over anomalies and proposing actions.
+              </p>
+
+              <p>
+                v1 can be rules + templated output; v1.5 can add an LLM. The rule-based approach creates a simple mapping from <code>(metric_name, direction)</code> → <code>likely_cause</code>, <code>suggested_action</code>.
+              </p>
+
+              <p><strong>Example mappings:</strong></p>
+              <ul>
+                <li><strong>pct_mapped very low</strong> → Causes: wrong reference, contamination, sample swap. Actions: verify reference build, check sample sheet, re-run alignment with stricter QC.</li>
+                <li><strong>duplication_rate very high</strong> → Causes: low input, over-amplification, library prep issues. Actions: review library prep batch, consider excluding sample or re-sequencing.</li>
+                <li><strong>pct_rRNA very high</strong> → Causes: failed rRNA depletion. Actions: flag batch, review wet-lab protocol, possibly drop/re-run subset.</li>
+              </ul>
+            </div>
+
+            <h2>Implementation: Code Examples</h2>
+
+            <h3>Baseline Computation and Anomaly Detection</h3>
+            <p>
+              Here's the core Python implementation for computing baselines and detecting anomalies:
+            </p>
+
+            <pre><code>import pandas as pd
+import numpy as np
+
+Z_THRESHOLD = 3.0
+
+def compute_baselines(qc_history: pd.DataFrame):
+    """
+    Compute robust baselines (median and MAD) for each metric group.
+    
+    Args:
+        qc_history: DataFrame with columns [assay_type, pipeline_step, 
+                   metric_name, metric_value]
+    
+    Returns:
+        DataFrame with baselines (median, mad) per group
+    """
+    baselines = []
+    grouped = qc_history.groupby(["assay_type", "pipeline_step", "metric_name"])
+    
+    for (assay, step, metric), df in grouped:
+        values = df["metric_value"].dropna().values
+        if len(values) < 20:
+            continue  # not enough history yet
+
+        median = np.median(values)
+        mad = np.median(np.abs(values - median)) or 1e-6  # avoid zero
+
+        baselines.append({
+            "assay_type": assay,
+            "pipeline_step": step,
+            "metric_name": metric,
+            "median": median,
+            "mad": mad
+        })
+    
+    return pd.DataFrame(baselines)
+
+def detect_anomalies(qc_new: pd.DataFrame, baselines: pd.DataFrame):
+    """
+    Detect anomalies in new QC metrics using robust z-scores.
+    
+    Args:
+        qc_new: New QC metrics to check
+        baselines: Baseline statistics from compute_baselines()
+    
+    Returns:
+        DataFrame of detected anomalies
+    """
+    merged = qc_new.merge(
+        baselines,
+        on=["assay_type", "pipeline_step", "metric_name"],
+        how="left"
+    )
+
+    def score(row):
+        if pd.isna(row["median"]):
+            return np.nan
+        z = (row["metric_value"] - row["median"]) / (1.4826 * row["mad"])
+        return z
+
+    merged["z_score"] = merged.apply(score, axis=1)
+    merged["is_anomaly"] = merged["z_score"].abs() > Z_THRESHOLD
+    
+    return merged[merged["is_anomaly"]]
+</code></pre>
+
+            <h3>Rule-Based Explanation and Remediation</h3>
+            <p>
+              The agentic layer uses domain knowledge to map anomalies to causes and actions:
+            </p>
+
+            <pre><code>RULES = [
+    {
+        "metric_name": "pct_mapped",
+        "condition": lambda row: row["metric_value"] < 60,  # arbitrary example
+        "likely_cause": "Low mapping rate; potential reference mismatch or contamination.",
+        "recommendation": "Verify reference genome/build, check sample sheet integrity, and re-run alignment if misconfiguration is found."
+    },
+    {
+        "metric_name": "duplication_rate",
+        "condition": lambda row: row["metric_value"] > 0.8,
+        "likely_cause": "High duplication suggests library complexity issues.",
+        "recommendation": "Review library prep batch and consider excluding or re-sequencing affected samples."
+    },
+    {
+        "metric_name": "pct_rRNA",
+        "condition": lambda row: row["metric_value"] > 0.3,
+        "likely_cause": "High rRNA content suggests failed rRNA depletion.",
+        "recommendation": "Flag batch, review wet-lab protocol, possibly drop/re-run subset."
+    },
+    # Add more rules as needed
+]
+
+def explain_and_recommend(anomalies: pd.DataFrame):
+    """
+    Generate explanations and remediation recommendations for anomalies.
+    
+    Args:
+        anomalies: DataFrame of detected anomalies
+    
+    Returns:
+        DataFrame with explanations and recommendations
+    """
+    explanations = []
+    
+    for _, row in anomalies.iterrows():
+        for rule in RULES:
+            if row["metric_name"] == rule["metric_name"] and rule["condition"](row):
+                explanations.append({
+                    "sample_id": row["sample_id"],
+                    "batch_id": row.get("batch_id"),
+                    "assay_type": row["assay_type"],
+                    "pipeline_step": row["pipeline_step"],
+                    "metric_name": row["metric_name"],
+                    "metric_value": row["metric_value"],
+                    "z_score": row["z_score"],
+                    "likely_cause": rule["likely_cause"],
+                    "recommendation": rule["recommendation"],
+                    "tool_name": row.get("tool_name"),
+                    "tool_version": row.get("tool_version")
+                })
+                break
+    
+    return pd.DataFrame(explanations)
+</code></pre>
+
+            <h3>Putting It All Together</h3>
+            <p>
+              Here's how you'd orchestrate the full system:
+            </p>
+
+            <pre><code>def run_qc_agent(qc_history_path: str, qc_new_path: str, output_path: str):
+    """
+    Main function to run the QC anomaly detection agent.
+    
+    Args:
+        qc_history_path: Path to historical QC metrics
+        qc_new_path: Path to new QC metrics to check
+        output_path: Path to save anomaly report
+    """
+    # Load data
+    qc_history = pd.read_csv(qc_history_path)
+    qc_new = pd.read_csv(qc_new_path)
+    
+    # Compute baselines
+    print("Computing baselines from historical data...")
+    baselines = compute_baselines(qc_history)
+    
+    # Detect anomalies
+    print("Detecting anomalies...")
+    anomalies = detect_anomalies(qc_new, baselines)
+    
+    # Generate explanations and recommendations
+    print("Generating recommendations...")
+    recommendations = explain_and_recommend(anomalies)
+    
+    # Save report
+    recommendations.to_csv(output_path, index=False)
+    
+    # Optionally: generate markdown report
+    generate_markdown_report(recommendations, output_path.replace('.csv', '.md'))
+    
+    return recommendations
+
+def generate_markdown_report(recommendations: pd.DataFrame, output_path: str):
+    """Generate a human-readable markdown report."""
+    with open(output_path, 'w') as f:
+        f.write("# QC Anomaly Detection Report\n\n")
+        f.write(f"Generated: {pd.Timestamp.now()}\n\n")
+        f.write(f"Total anomalies detected: {len(recommendations)}\n\n")
+        
+        for _, rec in recommendations.iterrows():
+            f.write(f"## Sample: {rec['sample_id']}\n\n")
+            f.write(f"- **Batch:** {rec.get('batch_id', 'N/A')}\n")
+            f.write(f"- **Pipeline Step:** {rec['pipeline_step']}\n")
+            f.write(f"- **Metric:** {rec['metric_name']} = {rec['metric_value']:.2f}\n")
+            f.write(f"- **Z-Score:** {rec['z_score']:.2f}\n")
+            f.write(f"- **Tool:** {rec.get('tool_name', 'N/A')} {rec.get('tool_version', '')}\n\n")
+            f.write(f"**Likely Cause:** {rec['likely_cause']}\n\n")
+            f.write(f"**Recommendation:** {rec['recommendation']}\n\n")
+            f.write("---\n\n")
+</code></pre>
+
+            <h2>Integration with Airflow</h2>
+            <p>
+              To integrate this into your existing pipeline, you can add a task at the end of your DAG:
+            </p>
+
+            <pre><code>from airflow import DAG
+from airflow.operators.python import PythonOperator
+from datetime import datetime
+
+def qc_anomaly_detection_task(**context):
+    """Airflow task to run QC anomaly detection."""
+    from qc_agent import run_qc_agent
+    
+    # Get paths from context or config
+    qc_history_path = "/path/to/qc_metrics_history.csv"
+    qc_new_path = "/path/to/qc_metrics_new.csv"
+    output_path = f"/path/to/reports/qc_report_{datetime.now().strftime('%Y%m%d')}.csv"
+    
+    recommendations = run_qc_agent(qc_history_path, qc_new_path, output_path)
+    
+    # Optionally send alerts if critical anomalies found
+    if len(recommendations) > 0:
+        send_alert(recommendations)
+    
+    return output_path
+
+# Add to your DAG
+qc_check = PythonOperator(
+    task_id='qc_anomaly_detection',
+    python_callable=qc_anomaly_detection_task,
+    dag=dag
+)
+</code></pre>
+
+            <h2>Concrete Implementation Plan (2-3 Weeks)</h2>
+
+            <h3>Week 1: Foundation</h3>
+            <ul>
+              <li>Select one pipeline (RNA-seq) and list 8–12 QC metrics</li>
+              <li>Add small tasks to your pipeline to write these metrics to a single <code>qc_metrics</code> table/file</li>
+              <li>Build a simple script/notebook to:
+                <ul>
+                  <li>Load historical <code>qc_metrics</code></li>
+                  <li>Compute baselines (median, MAD)</li>
+                  <li>Run anomaly detection on one recent batch</li>
+                </ul>
+              </li>
+            </ul>
+
+            <h3>Week 2: Agentic Layer</h3>
+            <ul>
+              <li>Add the explanation + recommendation rule engine</li>
+              <li>Wrap the whole logic into:
+                <ul>
+                  <li>A Python module with <code>run_qc_agent()</code></li>
+                  <li>One Airflow DAG or task that runs after each pipeline completion</li>
+                </ul>
+              </li>
+            </ul>
+
+            <h3>Week 3: Polish and Deployment</h3>
+            <ul>
+              <li>Add reporting (markdown, email, or Slack notifications)</li>
+              <li>Test on production data</li>
+              <li>Iterate on rules based on real anomalies</li>
+            </ul>
+
+            <h2>Future Enhancements</h2>
+            <p>
+              Once v1 is working, you can enhance it with:
+            </p>
+            <ul>
+              <li><strong>ML-based detection:</strong> Use IsolationForest or autoencoders for more sophisticated anomaly detection</li>
+              <li><strong>LLM integration:</strong> Use an LLM to generate more nuanced explanations and recommendations</li>
+              <li><strong>Batch-level analysis:</strong> Compare entire batch distributions against historical patterns</li>
+              <li><strong>Automated remediation:</strong> Automatically trigger reruns or parameter adjustments for certain anomaly types</li>
+              <li><strong>Multi-assay support:</strong> Extend to other omics types (WGS, ATAC-seq, etc.)</li>
+            </ul>
+
+            <h2>Conclusion</h2>
+            <p>
+              This autonomous QC system provides a practical, implementable v1 that adds real value to production omics pipelines. By learning baseline behavior and automatically flagging anomalies with actionable recommendations, it reduces debugging time and prevents silent QC failures. The modular design makes it easy to extend and enhance as you gather more data and refine your rules.
+            </p>
+
+            <p>
+              The key to success is starting simple: focus on one assay type, collect the right metrics, and build robust baseline models. Once that's working, the agentic reasoning layer becomes straightforward to add, and you can iterate from there.
+            </p>
+
+            <div class="highlight-box">
+              <strong>Key Takeaways:</strong>
+              <ul style="margin-top: 0.5rem;">
+                <li>Use robust statistics (median, MAD) for baseline computation</li>
+                <li>Start with rule-based explanations; add ML/LLM later</li>
+                <li>Integrate seamlessly into existing pipelines</li>
+                <li>Focus on actionable recommendations, not just detection</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <footer class="footer">
+      <section class="container">
+        <p>© 2025 Kishore R. Anekalla</p>
+      </section>
+    </footer>
+  </main>
+</body>
+</html>
+
