@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Kishore R. Anekalla</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 20 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 15 Jan 2025 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Autonomous QC and Anomaly Detection for Omics Pipelines</title>
+      <link>/posts/autonomous-qc-anomaly-detection/</link>
+      <pubDate>Wed, 15 Jan 2025 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/autonomous-qc-anomaly-detection/</guid>
+      <description>I built an autonomous QC layer on top of omics pipelines that continuously ingests pipeline QC metrics, learns baseline behavior per assay and pipeline step, and automatically flags outliers. The system traces anomalies back to specific tools, parameters, or batches and recommends remediation actions (reruns, parameter changes, or sample exclusion), reducing debugging time and preventing silent QC failures in production workflows.</description>
+    </item>
     
     <item>
       <title>Render LaTeX using KaTeX</title>
