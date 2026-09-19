@@ -1,9 +1,9 @@
 baseURL = "https://kanekalla.github.io/"
 languageCode = "en-us"
 defaultContentLanguage = "en"
-title = "Kishore R. Anekalla"
+title = "Kishore Anekalla"
 theme = "hugo-coder"
-copyright = "© 2026 Kishore R. Anekalla"
+copyright = "© 2026 Kishore Anekalla"
 enableRobotsTXT = true
 enableGitInfo = true
 enableEmoji = true
@@ -20,7 +20,7 @@ paginatePath = "page"
   page = ["HTML"]
 
 [params]
-  author = "Kishore R. Anekalla"
+  author = "Kishore Anekalla"
   description = "Scientist and engineer at the intersection of machine learning, bioinformatics, and computational biology"
   keywords = ["Kishore Anekalla", "principal scientist", "machine learning", "bioinformatics", "computational biology", "agentic AI", "multi-omics", "drug discovery"]
   info = "Scientist & Engineer"
