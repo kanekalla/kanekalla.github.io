@@ -3,22 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kishore Anekalla | Scientist &amp; Engineer</title>
+  <title>Kishore Anekalla | Scientist &amp; Engineer in ML and Computational Biology</title>
   <meta name="author" content="Kishore Anekalla">
-  <meta name="description" content="Kishore Anekalla — scientist and engineer working at the intersection of machine learning, bioinformatics, and computational biology.">
-  <meta name="keywords" content="Kishore Anekalla, scientist, engineer, machine learning, bioinformatics, computational biology">
+  <meta name="description" content="Kishore Anekalla is a scientist and engineer working in machine learning, bioinformatics, and computational biology. Publications on Google Scholar; profile on ORCID; updates on X.">
+  <meta name="keywords" content="Kishore Anekalla, scientist, engineer, machine learning, bioinformatics, computational biology, Google Scholar, ORCID">
   <link rel="canonical" href="https://kanekalla.github.io/">
 
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="profile">
   <meta property="og:url" content="https://kanekalla.github.io/">
   <meta property="og:title" content="Kishore Anekalla | Scientist &amp; Engineer">
-  <meta property="og:description" content="Scientist and engineer at the intersection of machine learning, bioinformatics, and computational biology.">
+  <meta property="og:description" content="Scientist and engineer in machine learning, bioinformatics, and computational biology. Find publications on Google Scholar and ORCID.">
   <meta property="og:image" content="https://kanekalla.github.io/images/kishore.jpg">
   <meta property="og:site_name" content="Kishore Anekalla">
 
   <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@kishoreanekalla">
+  <meta name="twitter:creator" content="@kishoreanekalla">
   <meta name="twitter:title" content="Kishore Anekalla | Scientist &amp; Engineer">
-  <meta name="twitter:description" content="Scientist and engineer at the intersection of machine learning, bioinformatics, and computational biology.">
+  <meta name="twitter:description" content="Scientist and engineer in machine learning, bioinformatics, and computational biology.">
   <meta name="twitter:image" content="https://kanekalla.github.io/images/kishore.jpg">
 
   <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
@@ -31,24 +33,45 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Kishore Anekalla",
-    "url": "https://kanekalla.github.io/",
-    "image": "https://kanekalla.github.io/images/kishore.jpg",
-    "email": "mailto:kishorereddyanekalla@gmail.com",
-    "jobTitle": "Scientist and Engineer",
-    "sameAs": [
-      "https://www.linkedin.com/in/kishoreanekalla",
-      "https://scholar.google.com/citations?user=Aux_e5sAAAAJ&hl=en",
-      "https://github.com/kanekalla",
-      "https://orcid.org/0000-0002-8366-5782",
-      "https://twitter.com/kishoreanekalla"
-    ],
-    "knowsAbout": [
-      "Machine Learning",
-      "Bioinformatics",
-      "Computational Biology",
-      "Data Science"
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://kanekalla.github.io/#website",
+        "url": "https://kanekalla.github.io/",
+        "name": "Kishore Anekalla",
+        "description": "Personal site of Kishore Anekalla, scientist and engineer in machine learning, bioinformatics, and computational biology.",
+        "publisher": {"@id": "https://kanekalla.github.io/#person"}
+      },
+      {
+        "@type": "Person",
+        "@id": "https://kanekalla.github.io/#person",
+        "name": "Kishore Anekalla",
+        "url": "https://kanekalla.github.io/",
+        "image": "https://kanekalla.github.io/images/kishore.jpg",
+        "email": "mailto:kishorereddyanekalla@gmail.com",
+        "jobTitle": "Scientist and Engineer",
+        "description": "Kishore Anekalla is a scientist and engineer working at the intersection of machine learning, bioinformatics, and computational biology.",
+        "identifier": {
+          "@type": "PropertyValue",
+          "propertyID": "ORCID",
+          "value": "0000-0002-8366-5782"
+        },
+        "sameAs": [
+          "https://scholar.google.com/citations?user=Aux_e5sAAAAJ&hl=en",
+          "https://orcid.org/0000-0002-8366-5782",
+          "https://x.com/kishoreanekalla",
+          "https://twitter.com/kishoreanekalla",
+          "https://www.linkedin.com/in/kishoreanekalla",
+          "https://github.com/kanekalla"
+        ],
+        "knowsAbout": [
+          "Machine Learning",
+          "Bioinformatics",
+          "Computational Biology",
+          "Data Science",
+          "Scientific Software"
+        ]
+      }
     ]
   }
   </script>
@@ -132,6 +155,30 @@
       font-size: 1.15rem; margin-bottom: 0.9rem;
       padding-bottom: 0.4rem; border-bottom: 1px solid var(--border);
     }
+    .about-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 0.9rem;
+      padding: 1.15rem 1.25rem;
+      max-width: 46rem;
+    }
+    .about-card p { color: var(--muted); margin-bottom: 0.85rem; }
+    .about-card p:last-child { margin-bottom: 0; }
+    .profile-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .profile-link {
+      display: flex; flex-direction: column; gap: 0.2rem;
+      border: 1px solid var(--border); background: var(--card);
+      border-radius: 0.75rem; padding: 0.85rem 1rem;
+      text-decoration: none; color: var(--text);
+    }
+    .profile-link:hover { border-color: var(--accent); text-decoration: none; }
+    .profile-link strong { font-size: 0.95rem; }
+    .profile-link span { color: var(--muted); font-size: 0.85rem; }
     .chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
     .chip {
       font-size: 0.85rem; color: var(--muted); border: 1px solid var(--border);
@@ -162,6 +209,7 @@
       <a class="brand" href="/">Kishore Anekalla</a>
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
+        <li><a href="#profiles">Profiles</a></li>
         <li><a href="#focus">Focus</a></li>
         <li><a href="/cv/cv_kra.pdf">CV</a></li>
         <li><a href="/posts/">Blog</a></li>
@@ -176,23 +224,50 @@
       <h1>Kishore Anekalla</h1>
       <p class="role">Scientist &amp; Engineer</p>
       <p class="lede">
-        I am a scientist and engineer working at the intersection of machine learning, bioinformatics, and computational biology — building tools and systems that help turn complex biological data into clearer decisions.
+        Kishore Anekalla is a scientist and engineer working at the intersection of machine learning, bioinformatics, and computational biology.
       </p>
       <div class="cta">
-        <a class="btn btn-primary" href="mailto:kishorereddyanekalla@gmail.com"><i class="fas fa-envelope" aria-hidden="true"></i> Email</a>
-        <a class="btn" href="https://www.linkedin.com/in/kishoreanekalla" target="_blank" rel="noopener"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a>
-        <a class="btn" href="https://scholar.google.com/citations?user=Aux_e5sAAAAJ&hl=en" target="_blank" rel="noopener"><i class="fas fa-graduation-cap" aria-hidden="true"></i> Google Scholar</a>
-        <a class="btn" href="/cv/cv_kra.pdf"><i class="fas fa-file-pdf" aria-hidden="true"></i> CV (PDF)</a>
+        <a class="btn btn-primary" href="https://scholar.google.com/citations?user=Aux_e5sAAAAJ&hl=en" target="_blank" rel="noopener"><i class="fas fa-graduation-cap" aria-hidden="true"></i> Google Scholar</a>
+        <a class="btn" href="https://orcid.org/0000-0002-8366-5782" target="_blank" rel="noopener"><i class="fab fa-orcid" aria-hidden="true"></i> ORCID</a>
+        <a class="btn" href="https://x.com/kishoreanekalla" target="_blank" rel="noopener"><i class="fab fa-x-twitter" aria-hidden="true"></i> X</a>
+        <a class="btn" href="mailto:kishorereddyanekalla@gmail.com"><i class="fas fa-envelope" aria-hidden="true"></i> Email</a>
       </div>
     </div>
   </header>
 
   <main class="wrap">
     <section id="about" aria-labelledby="about-heading">
-      <h2 id="about-heading">About</h2>
-      <p style="color:var(--muted); max-width:46rem;">
-        Curious about how models and experiments should talk to each other. I write about computational biology, machine learning for the life sciences, and practical engineering for scientific work. More detail lives in the CV and on Scholar — this page stays light on purpose.
-      </p>
+      <h2 id="about-heading">About Kishore Anekalla</h2>
+      <div class="about-card">
+        <p>
+          <strong>Who is Kishore Anekalla?</strong>
+          A scientist and engineer focused on machine learning for biological data — from bioinformatics pipelines to models that help interpret complex experiments.
+        </p>
+        <p>
+          This site is a clean public profile: short context here, deeper publication history on Google Scholar and ORCID, and shorter notes on X and the blog.
+        </p>
+        <p>
+          For a full CV, use the PDF. For research identity and publications, use Scholar and ORCID.
+        </p>
+      </div>
+    </section>
+
+    <section id="profiles" aria-labelledby="profiles-heading">
+      <h2 id="profiles-heading">Research profiles</h2>
+      <div class="profile-links">
+        <a class="profile-link" href="https://scholar.google.com/citations?user=Aux_e5sAAAAJ&hl=en" target="_blank" rel="noopener">
+          <strong>Google Scholar</strong>
+          <span>Publications and citations</span>
+        </a>
+        <a class="profile-link" href="https://orcid.org/0000-0002-8366-5782" target="_blank" rel="noopener">
+          <strong>ORCID</strong>
+          <span>0000-0002-8366-5782</span>
+        </a>
+        <a class="profile-link" href="https://x.com/kishoreanekalla" target="_blank" rel="noopener">
+          <strong>X</strong>
+          <span>@kishoreanekalla</span>
+        </a>
+      </div>
     </section>
 
     <section id="focus" aria-labelledby="focus-heading">
@@ -209,11 +284,11 @@
     <section id="connect" aria-labelledby="connect-heading">
       <h2 id="connect-heading">Connect</h2>
       <div class="social">
+        <a href="https://scholar.google.com/citations?user=Aux_e5sAAAAJ&hl=en" target="_blank" rel="noopener"><i class="fas fa-graduation-cap" aria-hidden="true"></i> Google Scholar</a>
+        <a href="https://orcid.org/0000-0002-8366-5782" target="_blank" rel="noopener"><i class="fab fa-orcid" aria-hidden="true"></i> ORCID</a>
+        <a href="https://x.com/kishoreanekalla" target="_blank" rel="noopener"><i class="fab fa-x-twitter" aria-hidden="true"></i> X</a>
         <a href="https://github.com/kanekalla/" target="_blank" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a>
         <a href="https://www.linkedin.com/in/kishoreanekalla" target="_blank" rel="noopener"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a>
-        <a href="https://scholar.google.com/citations?user=Aux_e5sAAAAJ&hl=en" target="_blank" rel="noopener"><i class="fas fa-graduation-cap" aria-hidden="true"></i> Scholar</a>
-        <a href="https://orcid.org/0000-0002-8366-5782" target="_blank" rel="noopener"><i class="fab fa-orcid" aria-hidden="true"></i> ORCID</a>
-        <a href="https://twitter.com/kishoreanekalla/" target="_blank" rel="noopener"><i class="fab fa-x-twitter" aria-hidden="true"></i> X</a>
         <a href="mailto:kishorereddyanekalla@gmail.com"><i class="fas fa-envelope" aria-hidden="true"></i> Email</a>
       </div>
     </section>

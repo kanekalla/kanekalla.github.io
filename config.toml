@@ -21,7 +21,7 @@ paginatePath = "page"
 
 [params]
   author = "Kishore Anekalla"
-  description = "Scientist and engineer at the intersection of machine learning, bioinformatics, and computational biology"
+  description = "Kishore Anekalla is a scientist and engineer in machine learning, bioinformatics, and computational biology. Google Scholar, ORCID, and X profiles linked from the homepage."
   keywords = ["Kishore Anekalla", "principal scientist", "machine learning", "bioinformatics", "computational biology", "agentic AI", "multi-omics", "drug discovery"]
   info = "Scientist & Engineer"
   
