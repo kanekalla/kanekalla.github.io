@@ -3,7 +3,7 @@ languageCode = "en-us"
 defaultContentLanguage = "en"
 title = "Kishore R. Anekalla"
 theme = "hugo-coder"
-copyright = "© 2024 Kishore R. Anekalla"
+copyright = "© 2026 Kishore R. Anekalla"
 enableRobotsTXT = true
 enableGitInfo = true
 enableEmoji = true
@@ -21,9 +21,9 @@ paginatePath = "page"
 
 [params]
   author = "Kishore R. Anekalla"
-  description = "Bioinformatics | Computational Bio | Machine Learning | Data Science"
-  keywords = ["computational biology", "data science", "machine learning", "bioinformatics", "research", "statistics"]
-  info = "Bioinformatics | Computational Bio | Machine Learning | Data Science"
+  description = "Scientist and engineer at the intersection of machine learning, bioinformatics, and computational biology"
+  keywords = ["Kishore Anekalla", "principal scientist", "machine learning", "bioinformatics", "computational biology", "agentic AI", "multi-omics", "drug discovery"]
+  info = "Scientist & Engineer"
   
   # Social links
   [[params.social]]
@@ -47,7 +47,7 @@ paginatePath = "page"
   [[params.social]]
     name = "LinkedIn"
     icon = "fab fa-linkedin"
-    url = "http://linkedin.com/in/kishore-reddy-anekalla-9b4b8121"
+    url = "https://www.linkedin.com/in/kishoreanekalla"
     weight = 4
   
   [[params.social]]

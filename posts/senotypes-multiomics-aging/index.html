@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Kishore R. Anekalla">
+  <meta name="description" content="Notes on multi-omics atlases of senescent cell states (senotypes), aging biomarkers, and why cell-state resolution matters for senotherapeutics.">
+  <meta name="keywords" content="senescence, senotypes, multi-omics, aging, single-cell, biomarkers, computational biology">
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Senotypes: Mapping Senescent Cell States Across Tissues"/>
+  <meta name="twitter:description" content="Notes on multi-omics atlases of senescent cell states (senotypes), aging biomarkers, and why cell-state resolution matters for senotherapeutics."/>
+  <meta property="og:title" content="Senotypes: Mapping Senescent Cell States Across Tissues" />
+  <meta property="og:description" content="Notes on multi-omics atlases of senescent cell states (senotypes), aging biomarkers, and why cell-state resolution matters for senotherapeutics." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://kanekalla.github.io/posts/senotypes-multiomics-aging/" />
+  <base href="/posts/senotypes-multiomics-aging/">
+  <title>Senotypes: Mapping Senescent Cell States Across Tissues · Kishore R. Anekalla</title>
+  <link rel="canonical" href="https://kanekalla.github.io/posts/senotypes-multiomics-aging/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/modern.css">
+  <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+  <style>
+    .highlight-box {
+      background: var(--bg-secondary);
+      border-left: 4px solid var(--accent);
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 4px;
+    }
+    ul, ol { line-height: 1.8; }
+    li { margin: 0.5rem 0; }
+  </style>
+</head>
+<body>
+  <main class="wrapper">
+    <nav class="navigation">
+      <section class="container">
+        <a class="navigation-title" href="/">Kishore R. Anekalla</a>
+        <input type="checkbox" id="menu-toggle" />
+        <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+        <ul class="navigation-list" id="nav-list">
+          <li class="navigation-item"><a class="navigation-link" href="/about/">About</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/cv/cv_kra.pdf">CV</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/posts/">Blog</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/projects/">Projects</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/contact/">Contact</a></li>
+        </ul>
+      </section>
+    </nav>
+    <div class="content">
+      <section class="container page">
+        <article>
+          <header>
+            <h1>Senotypes: Mapping Senescent Cell States Across Tissues</h1>
+            <div style="margin-top: 1rem; color: var(--text-secondary);">
+              <span><i class="far fa-calendar"></i> July 23, 2026</span>
+              <span style="margin-left: 2rem;"><i class="far fa-clock"></i> 6 min read</span>
+            </div>
+            <div style="margin-top: 1rem;">
+              <span style="background: var(--bg-secondary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem; margin-right: 0.5rem;">Aging</span>
+              <span style="background: var(--bg-secondary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem; margin-right: 0.5rem;">Multi-omics</span>
+              <span style="background: var(--bg-secondary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem; margin-right: 0.5rem;">Single-cell</span>
+            </div>
+          </header>
+          <div style="margin-top: 3rem;">
+
+            <p>
+              Aging biology is moving past treating “senescent cells” as one homogeneous bucket.
+              Recent multi-omics atlases argue for <strong>senotypes</strong> — distinct senescent cell states that vary by tissue,
+              program, and molecular context — mapped with single-cell and spatial readouts.
+            </p>
+            <h2>Why this matters</h2>
+            <p>
+              If senescence is a family of states rather than a single phenotype, biomarkers and interventions should be state-aware.
+              That has direct implications for:
+            </p>
+            <ul>
+              <li>Aging biomarker panels that generalize across tissues</li>
+              <li>AI signatures trained on heterogeneous single-cell atlases</li>
+              <li>Targeted senotherapeutics that modulate harmful states without blunt cytotoxicity</li>
+            </ul>
+            <div class="highlight-box">
+              <strong>Computational takeaway:</strong> atlas-scale senescence work is as much a data-integration and representation problem
+              as it is a biology problem — batch, tissue, and assay context have to be modeled explicitly if signatures are going to travel.
+            </div>
+            <h2>What I’m watching next</h2>
+            <ol>
+              <li>How stable senotype definitions are across cohorts and technologies</li>
+              <li>Whether spatial context changes which states look “causal” vs bystander</li>
+              <li>How cleanly these states connect to actionable therapeutic axes</li>
+            </ol>
+            <p>
+              This note expands a short thread I posted on X about multi-omics mapping of senescent cell states.
+            </p>
+
+            <hr style="margin: 2.5rem 0; border: none; border-top: 1px solid var(--border-color);">
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
+              Expanded from notes I shared on <a href="https://x.com/kishoreanekalla" target="_blank" rel="noopener">X</a>.
+              For more writing, see the <a href="/posts/">blog index</a>.
+            </p>
+          </div>
+        </article>
+      </section>
+    </div>
+    <footer class="footer">
+      <section class="container">
+        <p>© 2026 Kishore R. Anekalla</p>
+      </section>
+    </footer>
+  </main>
+</body>
+</html>

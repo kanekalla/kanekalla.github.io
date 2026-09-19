@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Kishore R. Anekalla">
+  <meta name="description" content="A short refresher on MHC Class I vs II, HLA typing tools, and peptide prediction resources used in neoantigen discovery and vaccine design.">
+  <meta name="keywords" content="HLA, MHC, neoantigen, vaccine, immunogenetics, NetMHCpan, IEDB, bioinformatics">
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="A Practical MHC/HLA Primer for Neoantigen and Vaccine Work"/>
+  <meta name="twitter:description" content="A short refresher on MHC Class I vs II, HLA typing tools, and peptide prediction resources used in neoantigen discovery and vaccine design."/>
+  <meta property="og:title" content="A Practical MHC/HLA Primer for Neoantigen and Vaccine Work" />
+  <meta property="og:description" content="A short refresher on MHC Class I vs II, HLA typing tools, and peptide prediction resources used in neoantigen discovery and vaccine design." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://kanekalla.github.io/posts/hla-mhc-primer-for-neoantigen-work/" />
+  <base href="/posts/hla-mhc-primer-for-neoantigen-work/">
+  <title>A Practical MHC/HLA Primer for Neoantigen and Vaccine Work · Kishore R. Anekalla</title>
+  <link rel="canonical" href="https://kanekalla.github.io/posts/hla-mhc-primer-for-neoantigen-work/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/modern.css">
+  <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+  <style>
+    .highlight-box {
+      background: var(--bg-secondary);
+      border-left: 4px solid var(--accent);
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 4px;
+    }
+    ul, ol { line-height: 1.8; }
+    li { margin: 0.5rem 0; }
+  </style>
+</head>
+<body>
+  <main class="wrapper">
+    <nav class="navigation">
+      <section class="container">
+        <a class="navigation-title" href="/">Kishore R. Anekalla</a>
+        <input type="checkbox" id="menu-toggle" />
+        <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+        <ul class="navigation-list" id="nav-list">
+          <li class="navigation-item"><a class="navigation-link" href="/about/">About</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/cv/cv_kra.pdf">CV</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/posts/">Blog</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/projects/">Projects</a></li>
+          <li class="navigation-item"><a class="navigation-link" href="/contact/">Contact</a></li>
+        </ul>
+      </section>
+    </nav>
+    <div class="content">
+      <section class="container page">
+        <article>
+          <header>
+            <h1>A Practical MHC/HLA Primer for Neoantigen and Vaccine Work</h1>
+            <div style="margin-top: 1rem; color: var(--text-secondary);">
+              <span><i class="far fa-calendar"></i> July 11, 2026</span>
+              <span style="margin-left: 2rem;"><i class="far fa-clock"></i> 7 min read</span>
+            </div>
+            <div style="margin-top: 1rem;">
+              <span style="background: var(--bg-secondary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem; margin-right: 0.5rem;">Immunogenetics</span>
+              <span style="background: var(--bg-secondary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem; margin-right: 0.5rem;">Neoantigen</span>
+              <span style="background: var(--bg-secondary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem; margin-right: 0.5rem;">Bioinformatics</span>
+            </div>
+          </header>
+          <div style="margin-top: 3rem;">
+
+            <p>
+              If you work on neoantigen discovery, vaccine design, or transplant-adjacent analysis, MHC/HLA literacy pays for itself quickly.
+              Here is the compact mental model I keep coming back to.
+            </p>
+            <h2>Class I vs Class II (the working distinction)</h2>
+            <ul>
+              <li><strong>Class I</strong> presents endogenous peptides to <strong>CD8</strong> T cells</li>
+              <li><strong>Class II</strong> presents exogenous peptides to <strong>CD4</strong> T cells</li>
+            </ul>
+            <p>
+              Everything else — allele naming, typing accuracy, binder prediction — sits on top of that split.
+            </p>
+            <h2>Tooling I mention often</h2>
+            <ul>
+              <li><strong>IPD-IMGT/HLA</strong> — allele reference</li>
+              <li><strong>OptiType / HLA-HD</strong> — typing from sequencing data</li>
+              <li><strong>NetMHCpan</strong> — peptide–MHC binding prediction</li>
+              <li><strong>IEDB</strong> — epitope resources and analysis utilities</li>
+            </ul>
+            <div class="highlight-box">
+              <strong>Practical tip:</strong> separate “typing confidence,” “peptide generation,” and “presentation/binding prediction” as three stages.
+              Mixing them into one black box makes failures hard to debug.
+            </div>
+            <h2>Where this shows up</h2>
+            <ul>
+              <li>Transplant matching</li>
+              <li>Neoantigen ranking for personalized immunotherapy</li>
+              <li>Vaccine epitope selection</li>
+            </ul>
+            <p>
+              This is an expanded version of a short HLA refresher I posted on X — meant as a checklist, not a textbook.
+            </p>
+
+            <hr style="margin: 2.5rem 0; border: none; border-top: 1px solid var(--border-color);">
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
+              Expanded from notes I shared on <a href="https://x.com/kishoreanekalla" target="_blank" rel="noopener">X</a>.
+              For more writing, see the <a href="/posts/">blog index</a>.
+            </p>
+          </div>
+        </article>
+      </section>
+    </div>
+    <footer class="footer">
+      <section class="container">
+        <p>© 2026 Kishore R. Anekalla</p>
+      </section>
+    </footer>
+  </main>
+</body>
+</html>
