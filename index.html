@@ -192,6 +192,26 @@
       color: var(--muted); font-weight: 500; text-decoration: none;
     }
     .social a:hover { color: var(--accent); }
+
+    .pub-stats { display:flex; flex-wrap:wrap; gap:.6rem; margin-bottom:1rem; }
+    .stat { background:var(--card); border:1px solid var(--border); border-radius:.75rem; padding:.6rem .9rem; min-width:120px; }
+    .stat b { display:block; font-size:1.35rem; color:var(--accent); line-height:1.2; }
+    .stat span { font-size:.8rem; color:var(--muted); }
+    .pub-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:1rem; }
+    .pub { display:flex; flex-direction:column; background:var(--card); border:1px solid var(--border); border-radius:.9rem; overflow:hidden; transition:transform .15s,border-color .15s; }
+    .pub:hover { transform:translateY(-2px); border-color:var(--accent); }
+    .pub svg { display:block; width:100%; height:auto; background:var(--accent-soft); }
+    .pub-body { padding:.9rem 1rem 1rem; display:flex; flex-direction:column; gap:.4rem; flex:1; }
+    .pub-meta { font-size:.75rem; font-weight:600; text-transform:uppercase; letter-spacing:.04em; color:var(--accent); }
+    .pub h3 { font-size:.98rem; line-height:1.35; }
+    .pub h3 a { color:var(--text); }
+    .pub p { font-size:.86rem; color:var(--muted); }
+    .pub .authors { font-size:.78rem; }
+    .pub .authors b { color:var(--text); }
+    .pub-foot { margin-top:auto; display:flex; justify-content:space-between; align-items:center; font-size:.8rem; padding-top:.4rem; }
+    .cite { background:var(--accent-soft); color:var(--text); border-radius:999px; padding:.15rem .55rem; font-weight:600; }
+    .pub-note { font-size:.78rem; color:var(--muted); margin-top:.9rem; }
+    @media (prefers-reduced-motion: reduce) { .pub { transition:none; } .pub:hover { transform:none; } }
     footer {
       border-top: 1px solid var(--border); margin-top: 2rem;
       padding: 1.5rem 0 2.5rem; color: var(--muted); font-size: 0.9rem;
@@ -209,6 +229,7 @@
       <a class="brand" href="/">Kishore Anekalla</a>
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
+        <li><a href="#publications">Publications</a></li>
         <li><a href="#profiles">Profiles</a></li>
         <li><a href="#focus">Focus</a></li>
         <li><a href="/cv/cv_kra.pdf">CV</a></li>
@@ -243,6 +264,79 @@
           I’m a scientist and engineer who likes working where machine learning meets biology — building software and analysis that help make sense of messy experimental data.
         </p>
       </div>
+    </section>
+
+
+    <section id="publications" aria-labelledby="pubs-heading">
+      <h2 id="pubs-heading">Selected publications</h2>
+      <div class="pub-stats">
+        <div class="stat"><b>12</b><span>peer-reviewed papers (ORCID)</span></div>
+        <div class="stat"><b>2,600+</b><span>citations (Europe PMC)</span></div>
+        <div class="stat"><b>Lung · Aging · Immunity</b><span>single-cell &amp; text mining</span></div>
+      </div>
+      <div class="pub-grid">
+        <article class="pub">
+          <svg viewBox="0 0 350 140" role="img" aria-hidden="true" focusable="false"><defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8z" fill="#7c3aed"/></marker></defs><circle cx="81" cy="73" r="3" fill="#0f766e" opacity=".8"/><circle cx="67" cy="70" r="3" fill="#0f766e" opacity=".8"/><circle cx="76" cy="57" r="3" fill="#0f766e" opacity=".8"/><circle cx="107" cy="62" r="3" fill="#0f766e" opacity=".8"/><circle cx="79" cy="67" r="3" fill="#0f766e" opacity=".8"/><circle cx="96" cy="60" r="3" fill="#0f766e" opacity=".8"/><circle cx="88" cy="50" r="3" fill="#0f766e" opacity=".8"/><circle cx="75" cy="56" r="3" fill="#0f766e" opacity=".8"/><circle cx="61" cy="45" r="3" fill="#0f766e" opacity=".8"/><circle cx="57" cy="58" r="3" fill="#0f766e" opacity=".8"/><circle cx="78" cy="57" r="3" fill="#0f766e" opacity=".8"/><circle cx="81" cy="47" r="3" fill="#0f766e" opacity=".8"/><circle cx="79" cy="62" r="3" fill="#0f766e" opacity=".8"/><circle cx="91" cy="52" r="3" fill="#0f766e" opacity=".8"/><circle cx="74" cy="40" r="3" fill="#0f766e" opacity=".8"/><circle cx="73" cy="38" r="3" fill="#0f766e" opacity=".8"/><circle cx="60" cy="71" r="3" fill="#0f766e" opacity=".8"/><circle cx="49" cy="68" r="3" fill="#0f766e" opacity=".8"/><circle cx="85" cy="57" r="3" fill="#0f766e" opacity=".8"/><circle cx="86" cy="65" r="3" fill="#0f766e" opacity=".8"/><circle cx="95" cy="58" r="3" fill="#0f766e" opacity=".8"/><circle cx="72" cy="54" r="3" fill="#0f766e" opacity=".8"/><circle cx="66" cy="60" r="3" fill="#0f766e" opacity=".8"/><circle cx="69" cy="71" r="3" fill="#0f766e" opacity=".8"/><circle cx="54" cy="49" r="3" fill="#0f766e" opacity=".8"/><circle cx="67" cy="39" r="3" fill="#0f766e" opacity=".8"/><circle cx="107" cy="36" r="3" fill="#0f766e" opacity=".8"/><circle cx="76" cy="55" r="3" fill="#0f766e" opacity=".8"/><circle cx="213" cy="75" r="3" fill="#0891b2" opacity=".8"/><circle cx="205" cy="88" r="3" fill="#0891b2" opacity=".8"/><circle cx="188" cy="88" r="3" fill="#0891b2" opacity=".8"/><circle cx="199" cy="84" r="3" fill="#0891b2" opacity=".8"/><circle cx="189" cy="99" r="3" fill="#0891b2" opacity=".8"/><circle cx="216" cy="71" r="3" fill="#0891b2" opacity=".8"/><circle cx="211" cy="104" r="3" fill="#0891b2" opacity=".8"/><circle cx="183" cy="98" r="3" fill="#0891b2" opacity=".8"/><circle cx="183" cy="111" r="3" fill="#0891b2" opacity=".8"/><circle cx="193" cy="93" r="3" fill="#0891b2" opacity=".8"/><circle cx="187" cy="93" r="3" fill="#0891b2" opacity=".8"/><circle cx="188" cy="86" r="3" fill="#0891b2" opacity=".8"/><circle cx="219" cy="76" r="3" fill="#0891b2" opacity=".8"/><circle cx="140" cy="94" r="3" fill="#0891b2" opacity=".8"/><circle cx="188" cy="99" r="3" fill="#0891b2" opacity=".8"/><circle cx="187" cy="94" r="3" fill="#0891b2" opacity=".8"/><circle cx="195" cy="105" r="3" fill="#0891b2" opacity=".8"/><circle cx="184" cy="91" r="3" fill="#0891b2" opacity=".8"/><circle cx="217" cy="100" r="3" fill="#0891b2" opacity=".8"/><circle cx="176" cy="118" r="3" fill="#0891b2" opacity=".8"/><circle cx="201" cy="89" r="3" fill="#0891b2" opacity=".8"/><circle cx="174" cy="98" r="3" fill="#0891b2" opacity=".8"/><circle cx="178" cy="84" r="3" fill="#0891b2" opacity=".8"/><circle cx="172" cy="90" r="3" fill="#0891b2" opacity=".8"/><circle cx="206" cy="91" r="3" fill="#0891b2" opacity=".8"/><circle cx="170" cy="102" r="3" fill="#0891b2" opacity=".8"/><circle cx="191" cy="103" r="3" fill="#0891b2" opacity=".8"/><circle cx="207" cy="93" r="3" fill="#0891b2" opacity=".8"/><circle cx="268" cy="55" r="3" fill="#7c3aed" opacity=".8"/><circle cx="254" cy="62" r="3" fill="#7c3aed" opacity=".8"/><circle cx="289" cy="57" r="3" fill="#7c3aed" opacity=".8"/><circle cx="267" cy="52" r="3" fill="#7c3aed" opacity=".8"/><circle cx="259" cy="47" r="3" fill="#7c3aed" opacity=".8"/><circle cx="264" cy="47" r="3" fill="#7c3aed" opacity=".8"/><circle cx="264" cy="39" r="3" fill="#7c3aed" opacity=".8"/><circle cx="275" cy="55" r="3" fill="#7c3aed" opacity=".8"/><circle cx="254" cy="32" r="3" fill="#7c3aed" opacity=".8"/><circle cx="270" cy="66" r="3" fill="#7c3aed" opacity=".8"/><circle cx="260" cy="50" r="3" fill="#7c3aed" opacity=".8"/><circle cx="262" cy="62" r="3" fill="#7c3aed" opacity=".8"/><circle cx="257" cy="65" r="3" fill="#7c3aed" opacity=".8"/><circle cx="266" cy="64" r="3" fill="#7c3aed" opacity=".8"/><circle cx="270" cy="53" r="3" fill="#7c3aed" opacity=".8"/><circle cx="249" cy="48" r="3" fill="#7c3aed" opacity=".8"/><circle cx="266" cy="62" r="3" fill="#7c3aed" opacity=".8"/><circle cx="273" cy="48" r="3" fill="#7c3aed" opacity=".8"/><circle cx="276" cy="65" r="3" fill="#7c3aed" opacity=".8"/><circle cx="268" cy="51" r="3" fill="#7c3aed" opacity=".8"/><circle cx="264" cy="63" r="3" fill="#7c3aed" opacity=".8"/><circle cx="278" cy="46" r="3" fill="#7c3aed" opacity=".8"/><circle cx="275" cy="50" r="3" fill="#7c3aed" opacity=".8"/><circle cx="259" cy="67" r="3" fill="#7c3aed" opacity=".8"/><circle cx="281" cy="48" r="3" fill="#7c3aed" opacity=".8"/><circle cx="271" cy="60" r="3" fill="#7c3aed" opacity=".8"/><circle cx="261" cy="54" r="3" fill="#7c3aed" opacity=".8"/><circle cx="279" cy="37" r="3" fill="#7c3aed" opacity=".8"/></svg>
+          <div class="pub-body">
+            <span class="pub-meta">Am J Respir Crit Care Med · 2018</span>
+            <h3><a href="https://doi.org/10.1164/rccm.201712-2410OC" target="_blank" rel="noopener">Single-Cell Transcriptomic Analysis of Human Lung Provides Insights into the Pathobiology of Pulmonary Fibrosis</a></h3>
+            <p class="authors">Reyfman PA, Walter JM, Joshi N, <b>Anekalla KR</b>, … Misharin AV</p>
+            <p>One of the first single-cell atlases of human lungs from donors and patients with pulmonary fibrosis, revealing disease-specific cell states.</p>
+            <div class="pub-foot"><span class="cite" title="Europe PMC citation count, Oct 2026">1,096 citations</span><a href="https://doi.org/10.1164/rccm.201712-2410OC" target="_blank" rel="noopener" aria-label="Read: Single-Cell Transcriptomic Analysis of Human Lung Provides Insights into the Pathobiology of Pulmonary Fibrosis">Read →</a></div>
+          </div>
+        </article>
+        <article class="pub">
+          <svg viewBox="0 0 350 140" role="img" aria-hidden="true" focusable="false"><defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8z" fill="#7c3aed"/></marker></defs><circle cx="60" cy="60" r="14" fill="#0f766e" opacity="0.9"/><circle cx="95" cy="45" r="9" fill="#0f766e" opacity="0.6"/><circle cx="120" cy="80" r="16" fill="#0f766e" opacity="0.75"/><circle cx="160" cy="50" r="11" fill="#0f766e" opacity="0.5"/><circle cx="200" cy="85" r="13" fill="#0f766e" opacity="0.85"/><circle cx="240" cy="55" r="9" fill="#0f766e" opacity="0.6"/><circle cx="270" cy="90" r="15" fill="#0f766e" opacity="0.7"/><circle cx="80" cy="105" r="10" fill="#0f766e" opacity="0.5"/><circle cx="180" cy="110" r="8" fill="#0f766e" opacity="0.6"/><circle cx="300" cy="50" r="10" fill="#0f766e" opacity="0.8"/></svg>
+          <div class="pub-body">
+            <span class="pub-meta">J Exp Med · 2017</span>
+            <h3><a href="https://doi.org/10.1084/jem.20162152" target="_blank" rel="noopener">Monocyte-derived alveolar macrophages drive lung fibrosis and persist in the lung over the life span</a></h3>
+            <p class="authors">Misharin AV, Morales-Nebreda L, … <b>Anekalla KR</b>, … Perlman H</p>
+            <p>Shows that macrophages recruited from blood monocytes, not resident cells, drive fibrosis and persist in the lung for life.</p>
+            <div class="pub-foot"><span class="cite" title="Europe PMC citation count, Oct 2026">1,059 citations</span><a href="https://doi.org/10.1084/jem.20162152" target="_blank" rel="noopener" aria-label="Read: Monocyte-derived alveolar macrophages drive lung fibrosis and persist in the lung over the life span">Read →</a></div>
+          </div>
+        </article>
+        <article class="pub">
+          <svg viewBox="0 0 350 140" role="img" aria-hidden="true" focusable="false"><defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8z" fill="#7c3aed"/></marker></defs><path d="M30 110 C90 100 140 80 180 60 S270 25 320 20" stroke="#0f766e" stroke-width="4" fill="none"/><path d="M30 110 C100 108 170 100 320 90" stroke="#0891b2" stroke-width="3" stroke-dasharray="6 5" fill="none"/><circle cx="80" cy="102" r="5" fill="#0f766e"/><circle cx="180" cy="60" r="5" fill="#0f766e"/><circle cx="280" cy="28" r="5" fill="#0f766e"/></svg>
+          <div class="pub-body">
+            <span class="pub-meta">J Clin Invest · 2021</span>
+            <h3><a href="https://doi.org/10.1172/JCI140299" target="_blank" rel="noopener">The lung microenvironment shapes a dysfunctional response of alveolar macrophages in aging</a></h3>
+            <p class="authors">McQuattie-Pimentel AC, Ren Z, Joshi N, … <b>Anekalla KR</b>, … Budinger GRS</p>
+            <p>Aging of the lung environment, rather than of the macrophages themselves, underlies their impaired response in older lungs.</p>
+            <div class="pub-foot"><span class="cite" title="Europe PMC citation count, Oct 2026">149 citations</span><a href="https://doi.org/10.1172/JCI140299" target="_blank" rel="noopener" aria-label="Read: The lung microenvironment shapes a dysfunctional response of alveolar macrophages in aging">Read →</a></div>
+          </div>
+        </article>
+        <article class="pub">
+          <svg viewBox="0 0 350 140" role="img" aria-hidden="true" focusable="false"><defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8z" fill="#7c3aed"/></marker></defs><circle cx="110" cy="70" r="40" fill="none" stroke="#0f766e" stroke-width="4"/><circle cx="230" cy="70" r="40" fill="none" stroke="#0891b2" stroke-width="4"/><path d="M150 70 H190" stroke="#7c3aed" stroke-width="4" marker-end="url(#ah)"/><circle cx="220" cy="55" r="6" fill="#7c3aed"/><circle cx="240" cy="85" r="6" fill="#7c3aed"/><circle cx="250" cy="60" r="6" fill="#7c3aed"/></svg>
+          <div class="pub-body">
+            <span class="pub-meta">Sci Transl Med · 2017</span>
+            <h3><a href="https://doi.org/10.1126/scitranslmed.aal4508" target="_blank" rel="noopener">Donor pulmonary intravascular nonclassical monocytes recruit recipient neutrophils and mediate primary lung allograft dysfunction</a></h3>
+            <p class="authors">Zheng Z, Chiu S, Akbarpour M, Sun H, Reyfman PA, <b>Anekalla KR</b>, … Bharat A</p>
+            <p>Identifies donor monocytes carried in transplanted lungs as triggers of early graft injury.</p>
+            <div class="pub-foot"><span class="cite" title="Europe PMC citation count, Oct 2026">87 citations</span><a href="https://doi.org/10.1126/scitranslmed.aal4508" target="_blank" rel="noopener" aria-label="Read: Donor pulmonary intravascular nonclassical monocytes recruit recipient neutrophils and mediate primary lung allograft dysfunction">Read →</a></div>
+          </div>
+        </article>
+        <article class="pub">
+          <svg viewBox="0 0 350 140" role="img" aria-hidden="true" focusable="false"><defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8z" fill="#7c3aed"/></marker></defs><path d="M40 100 Q120 20 200 60 T320 50" stroke="#0f766e" stroke-width="4" fill="none"/><rect x="60" y="90" width="22" height="30" rx="3" fill="#0891b2"/><rect x="100" y="65" width="22" height="55" rx="3" fill="#0891b2"/><rect x="200" y="80" width="22" height="40" rx="3" fill="#7c3aed"/><rect x="240" y="50" width="22" height="70" rx="3" fill="#7c3aed"/></svg>
+          <div class="pub-body">
+            <span class="pub-meta">Am J Respir Cell Mol Biol · 2022</span>
+            <h3><a href="https://doi.org/10.1165/rcmb.2021-0292OC" target="_blank" rel="noopener">Age-related Differences in the Nasal Mucosal Immune Response to SARS-CoV-2</a></h3>
+            <p class="authors">Koch CM, Prigge AD, <b>Anekalla KR</b>, … Coates BM</p>
+            <p>Single-cell profiling of nasal mucosa shows how the early immune response to SARS-CoV-2 differs between children and adults.</p>
+            <div class="pub-foot"><span class="cite" title="Europe PMC citation count, Oct 2026">41 citations</span><a href="https://doi.org/10.1165/rcmb.2021-0292OC" target="_blank" rel="noopener" aria-label="Read: Age-related Differences in the Nasal Mucosal Immune Response to SARS-CoV-2">Read →</a></div>
+          </div>
+        </article>
+        <article class="pub">
+          <svg viewBox="0 0 350 140" role="img" aria-hidden="true" focusable="false"><defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8z" fill="#7c3aed"/></marker></defs><rect x="30" y="40" width="70" height="55" rx="8" fill="#0f766e"/><rect x="140" y="40" width="70" height="55" rx="8" fill="#0891b2"/><rect x="250" y="40" width="70" height="55" rx="8" fill="#7c3aed"/><path d="M100 67 H138 M210 67 H248" stroke="#334155" stroke-width="3"/><path d="M285 95 Q175 140 65 95" stroke="#334155" stroke-width="2" stroke-dasharray="5 4" fill="none"/></svg>
+          <div class="pub-body">
+            <span class="pub-meta">F1000Research · 2017 · first author</span>
+            <h3><a href="https://doi.org/10.12688/f1000research.11389.2" target="_blank" rel="noopener">PubRunner: A light-weight framework for updating text mining results</a></h3>
+            <p class="authors"><b>Anekalla KR</b>, Courneya JP, Fiorini N, Lever J, Muchow M, Busby B</p>
+            <p>An open-source framework that keeps text-mining results automatically up to date as new literature is published.</p>
+            <div class="pub-foot"><span class="cite" title="Europe PMC citation count, Oct 2026">6 citations</span><a href="https://doi.org/10.12688/f1000research.11389.2" target="_blank" rel="noopener" aria-label="Read: PubRunner: A light-weight framework for updating text mining results">Read →</a></div>
+          </div>
+        </article>
+      </div>
+      <p class="pub-note">Citation counts from Europe PMC (October 2026); Google Scholar counts are typically higher. Illustrations are original schematic artwork, not reproduced journal figures. <a href="https://scholar.google.com/citations?user=Aux_e5sAAAAJ&hl=en" target="_blank" rel="noopener">View all on Google Scholar</a> · <a href="https://orcid.org/0000-0002-8366-5782" target="_blank" rel="noopener">ORCID</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/?term=Anekalla+KR%5BAuthor%5D" target="_blank" rel="noopener">PubMed</a></p>
     </section>
 
     <section id="profiles" aria-labelledby="profiles-heading">
